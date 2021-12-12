@@ -1,0 +1,21 @@
+use-kits: true
+max-claim-corner-distance: 100
+min-claim-width: 4
+
+max-description-length: 80
+
+dtr-regen: 36000
+
+format-chat: true
+formatted-chat: "{team}::{name} > {message}"
+no-team-formatted-chat: "{name} > {message}"
+
+mob-spawn-in-claims: false
+
+# Configurable Messages Below
+
+msg-success: "Success!"
+msg-must-be-in-faction: "You must be in a faction to do that!"
+msg-must-be-leader: "You must be the leader to do that!"
+msg-player-not-found: "Player not found."
+msg-no-invite: "You do not have any invitations!"

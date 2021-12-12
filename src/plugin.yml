@@ -1,0 +1,13 @@
+name: HCFPlus
+main: life.steeze.hcfplus.HCFPlugin
+description: Simply HCF
+commands:
+  faction:
+    description: Use factions
+    aliases: [f, factions, fac]
+permissions:
+  hcf.admin:
+    default: op
+api-version: 1.18
+version: 1.18.0
+author: ViperCobra
