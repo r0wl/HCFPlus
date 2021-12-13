@@ -1,5 +1,5 @@
 use-kits: true
-allow-raiding: true
+enable-raiding: true
 
 max-team-name: 15
 max-claim-corner-distance: 100
