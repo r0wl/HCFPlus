@@ -1,4 +1,5 @@
 use-kits: true
+allow-raiding: true
 max-claim-corner-distance: 100
 min-claim-width: 4
 

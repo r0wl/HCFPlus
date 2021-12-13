@@ -32,7 +32,7 @@ public class Events implements Listener {
         for(Faction f : plugin.getData().getFactions()){
             if(f.hasClaim()){
                 if(f.getClaim().containsLocation(event)){
-                    if(f.getDtr() <= 0) return true;
+                    if(f.getDtr() <= 0 && ConfigManager.ENABLE_RAIDING) return true;
                     return Objects.equals(f, playerFac);
                 }
             }
@@ -213,6 +213,8 @@ public class Events implements Listener {
         if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
         final Player p = (Player) e.getWhoClicked();
         Faction f = plugin.getData().getFaction(p);
+
+        //todo map
         switch (e.getRawSlot()) {
             case 0:
                 f.setColor(ChatColor.WHITE);

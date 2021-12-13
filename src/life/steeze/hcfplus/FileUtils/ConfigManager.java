@@ -21,6 +21,7 @@ public class ConfigManager {
         MUST_BE_LEADER = config.getString("msg-must-be-leader");
         PLAYER_NOT_FOUND = config.getString("msg-player-not-found");
         NO_INVITE = config.getString("msg-no-invite");
+        ENABLE_RAIDING = config.getBoolean("enable-raiding");
     }
 
     /*
@@ -32,6 +33,7 @@ public class ConfigManager {
     public static int DTR_REGEN;
     public static boolean FORMAT_CHAT;
     public static boolean USE_KITS;
+    public static boolean ENABLE_RAIDING;
     public static String FORMATTED_CHAT;
     public static String NO_TEAM_FORMATTED_CHAT;
     public static boolean MOB_SPAWN_IN_CLAIMS;
