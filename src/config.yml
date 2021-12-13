@@ -1,10 +1,12 @@
 use-kits: true
 allow-raiding: true
+
+max-team-name: 15
 max-claim-corner-distance: 100
 min-claim-width: 4
-
 max-description-length: 80
 
+minimum-dtr: -1
 dtr-regen: 36000
 
 format-chat: true

@@ -1,5 +1,6 @@
 package life.steeze.hcfplus.Objects;
 
+import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.HCFPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -50,9 +51,15 @@ public class Faction implements ConfigurationSerializable {
     }
 
     private int dtr;
-    public void regenDtr() { if (this.dtr < this.members.size() + 1) this.dtr += 1; } // Add 1 for the leader of faction
-    public int getDtr() {return this.dtr;}
-    public void loseDtr(){ this.dtr--; }
+    public void regenDtr() {
+        if (this.dtr < this.members.size() + 1) this.dtr += 1; // Add 1 for the leader of faction
+    }
+    public int getDtr() {
+        return this.dtr;
+    }
+    public void loseDtr(){
+        if(this.dtr > ConfigManager.MINIMUM_DTR) this.dtr--;
+    }
 
     private UUID leader;
     public UUID getLeader() { return this.leader; }

@@ -1,16 +1,17 @@
 package life.steeze.hcfplus.FileUtils;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
 
 public class ConfigManager {
 
     public static void loadConfig(final FileConfiguration config){
         config.options().copyDefaults(true);
+        MAX_TEAM_NAME = config.getInt("max-team-name");
         MAX_CLAIM_DISTANCE = config.getInt("max-claim-corner-distance");
         MIN_CLAIM_WIDTH = config.getInt("min-claim-width");
         MAX_DESCRIPTION_LENGTH = config.getInt("max-description-length");
         DTR_REGEN = config.getInt("dtr-regen");
+        MINIMUM_DTR = config.getInt("minimum-dtr");
         FORMAT_CHAT = config.getBoolean("format-chat");
         FORMATTED_CHAT = config.getString("formatted-chat");
         NO_TEAM_FORMATTED_CHAT = config.getString("no-team-formatted-chat");
@@ -27,10 +28,12 @@ public class ConfigManager {
     /*
     Configurable things
      */
+    public static int MAX_TEAM_NAME;
     public static int MAX_CLAIM_DISTANCE;
     public static int MIN_CLAIM_WIDTH;
     public static int MAX_DESCRIPTION_LENGTH;
     public static int DTR_REGEN;
+    public static int MINIMUM_DTR;
     public static boolean FORMAT_CHAT;
     public static boolean USE_KITS;
     public static boolean ENABLE_RAIDING;
