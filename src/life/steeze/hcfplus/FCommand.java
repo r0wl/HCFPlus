@@ -46,6 +46,7 @@ public class FCommand implements CommandExecutor {
         subCommandMap.put("kick", new KickCommand());
         subCommandMap.put("info", new InfoCommand());
         subCommandMap.put("invite", new InviteCommand());
+        subCommandMap.put("setleader", new SetleaderCommand());
     }
 
 
