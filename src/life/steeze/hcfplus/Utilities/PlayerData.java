@@ -83,6 +83,7 @@ public class PlayerData {
     public void expireInvitation(Player p) {invites.remove(p);}
     public boolean acceptInvite(Player p){
         if(invites.containsKey(p)){
+            if(invites.get(p).getMembers().size() >= ConfigManager.MAX_MEMBERS) return false;
             invites.get(p).addPlayer(p);
             return true;
         }

@@ -1,24 +1,43 @@
+# Set to true for miner, archer, and bard kits to function.
 use-kits: true
+
+# Set to true if you wish for players to be raidable when at or below 0 DTR
 enable-raiding: true
 
+# Maximum team name (in characters)
 max-team-name: 15
-max-claim-corner-distance: 100
-min-claim-width: 4
+
+# Maximum description length (in characters)
 max-description-length: 80
 
+# Maximum distance between the 2 claim corners
+max-claim-corner-distance: 100
+
+# Minimum distance between 2 claim corners
+min-claim-width: 4
+
+# Maximum members in faction (excluding leader)
+max-members: 5
+
+# Minimum DTR so it does not drop too low. This does not affect the raidability threshold
 minimum-dtr: -1
+
+# How often (in ticks) to regenerate 1 DTR for all factions
 dtr-regen: 36000
 
+# Set this to true to allow chat formatting (To show team names in chat)
 format-chat: true
+
+# Formatting
 formatted-chat: "{team}::{name} > {message}"
 no-team-formatted-chat: "{name} > {message}"
 
+# Allow mobs to spawn in claims
 mob-spawn-in-claims: false
 
 # Configurable Messages Below
-
 msg-success: "Success!"
 msg-must-be-in-faction: "You must be in a faction to do that!"
 msg-must-be-leader: "You must be the leader to do that!"
 msg-player-not-found: "Player not found."
-msg-no-invite: "You do not have any invitations!"
+msg-no-invite: "You do not have any invitations or the faction you are trying to join is full."

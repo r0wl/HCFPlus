@@ -10,6 +10,7 @@ public class ConfigManager {
         MAX_CLAIM_DISTANCE = config.getInt("max-claim-corner-distance");
         MIN_CLAIM_WIDTH = config.getInt("min-claim-width");
         MAX_DESCRIPTION_LENGTH = config.getInt("max-description-length");
+        MAX_MEMBERS = config.getInt("max-team-size");
         DTR_REGEN = config.getInt("dtr-regen");
         MINIMUM_DTR = config.getInt("minimum-dtr");
         FORMAT_CHAT = config.getBoolean("format-chat");
@@ -23,12 +24,14 @@ public class ConfigManager {
         PLAYER_NOT_FOUND = config.getString("msg-player-not-found");
         NO_INVITE = config.getString("msg-no-invite");
         ENABLE_RAIDING = config.getBoolean("enable-raiding");
+
     }
 
     /*
     Configurable things
      */
     public static int MAX_TEAM_NAME;
+    public static int MAX_MEMBERS;
     public static int MAX_CLAIM_DISTANCE;
     public static int MIN_CLAIM_WIDTH;
     public static int MAX_DESCRIPTION_LENGTH;

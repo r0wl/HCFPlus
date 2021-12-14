@@ -1,5 +1,6 @@
 package life.steeze.hcfplus.FSubCommands;
 
+import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.HCFPlugin;
 import life.steeze.hcfplus.Utilities.PlayerData;
@@ -21,6 +22,9 @@ public class CreateCommand implements SubCommand {
         if(args.length == 0){
             p.sendMessage(ChatColor.RED + "Please supply an argument");
             return;
+        }
+        if(args[0].length() > ConfigManager.MAX_TEAM_NAME){
+            p.sendMessage(ChatColor.RED + "Faction name is too long");
         }
         if (data.getFactionStrictFacName(args[0]) != null) {
             p.sendMessage(ChatColor.RED + "Faction name is taken");
