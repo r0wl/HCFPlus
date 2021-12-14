@@ -182,6 +182,7 @@ public class Events implements Listener {
 
     @EventHandler
     public void onIgnite(BlockIgniteEvent e) {
+        if(e.getPlayer() == null) return;
         if(e.getPlayer().hasPermission("hcf.admin")) return;
         if(e.isCancelled()) return;
         if(!isActionLegal(e.getPlayer(), e.getBlock().getLocation())) {

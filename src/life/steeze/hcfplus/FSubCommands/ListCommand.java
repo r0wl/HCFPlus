@@ -12,8 +12,8 @@ public class ListCommand implements SubCommand {
         p.sendMessage(ChatColor.YELLOW + "----==== Factions List ====----");
         for (Faction listed : plugin.getData().getFactions()) {
             p.sendMessage(listed.getColor() + listed.getName() + ChatColor.YELLOW +
-                    " | " + ChatColor.WHITE + (listed.getMembers().size() + 1) + " members." +
-                    "\n" + listed.getDtr() + "/" + (listed.getMembers().size() + 1) + " DTR");
+                    " | " + ChatColor.WHITE + (listed.getMembers().size() + 1) + " members." + " | " +
+                    listed.getDtr() + "/" + (listed.getMembers().size() + 1) + " DTR");
         }
     }
 }
