@@ -208,6 +208,7 @@ public class Faction implements ConfigurationSerializable {
     //Remove player from faction, whether they left or were kicked. Returns true if player was in the faction, false if player was not.
     public boolean removePlayer(final UUID p) {
         if(p.equals(this.leader)){
+            if(this.dtr <= 0) return false;
             this.disband();
             return true;
         }
