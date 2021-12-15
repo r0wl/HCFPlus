@@ -25,6 +25,7 @@ public class CreateCommand implements SubCommand {
         }
         if(args[0].length() > ConfigManager.MAX_TEAM_NAME){
             p.sendMessage(ChatColor.RED + "Faction name is too long");
+            return;
         }
         if (data.getFactionStrictFacName(args[0]) != null) {
             p.sendMessage(ChatColor.RED + "Faction name is taken");
