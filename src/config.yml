@@ -4,6 +4,9 @@ use-kits: true
 # Set to true if you wish for players to be raidable when at or below 0 DTR
 enable-raiding: true
 
+# Show faction claim coordinates when you do /f info
+show-coords-in-info: true
+
 # Maximum team name (in characters)
 max-team-name: 15
 

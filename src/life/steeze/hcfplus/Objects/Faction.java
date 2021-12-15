@@ -184,6 +184,7 @@ public class Faction implements ConfigurationSerializable {
             }
             p.sendMessage(name);
         }
+        if(!ConfigManager.SHOW_COORDS_IN_INFO) return;
         if (this.hasClaim()) {
             p.sendMessage(ChatColor.GREEN + "Claim start: " + this.claim.start() +
                     "\n" +"Claim end: " + this.claim.end());

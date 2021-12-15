@@ -12,7 +12,7 @@ public class LeaveCommand implements SubCommand {
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
         Faction f = plugin.getData().getFactionOrError(p);
         if(!f.removePlayer(p.getUniqueId())){
-            p.sendMessage(ChatColor.RED + "Failed to leave faction. (Are you raidable?)");
+            p.sendMessage(ChatColor.RED + "Failed to leave faction. (Are you the leader and raidable?)");
         }
     }
 }

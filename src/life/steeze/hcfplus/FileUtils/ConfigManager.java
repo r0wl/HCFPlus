@@ -24,6 +24,7 @@ public class ConfigManager {
         PLAYER_NOT_FOUND = config.getString("msg-player-not-found");
         NO_INVITE = config.getString("msg-no-invite");
         ENABLE_RAIDING = config.getBoolean("enable-raiding");
+        SHOW_COORDS_IN_INFO = config.getBoolean("show-coords-in-info");
 
     }
 
@@ -40,6 +41,7 @@ public class ConfigManager {
     public static boolean FORMAT_CHAT;
     public static boolean USE_KITS;
     public static boolean ENABLE_RAIDING;
+    public static boolean SHOW_COORDS_IN_INFO;
     public static String FORMATTED_CHAT;
     public static String NO_TEAM_FORMATTED_CHAT;
     public static boolean MOB_SPAWN_IN_CLAIMS;
