@@ -11,3 +11,4 @@ permissions:
 api-version: 1.18
 version: 1.18.0
 author: ViperCobra
+softdepend: [PlaceholderAPI]

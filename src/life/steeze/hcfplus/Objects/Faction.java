@@ -29,8 +29,8 @@ public class Faction implements ConfigurationSerializable {
             return;
         }
         if (this.claim.containsLocation(p.getLocation())) {
-            this.home = p.getLocation();
             p.sendMessage(ChatColor.YELLOW + "Setting home...");
+            this.home = p.getLocation();
             p.sendMessage(ChatColor.YELLOW + "Done!");
         } else {
             p.sendMessage(ChatColor.RED + "Your home must be within your claim");
@@ -168,7 +168,7 @@ public class Faction implements ConfigurationSerializable {
             Bukkit.getPlayer(this.leader).sendMessage(ChatColor.YELLOW + "You are now the leader of your faction!");
     }
 
-    // life.steeze.hcfplus.Objects.Faction info display.
+    // Faction info display.
     public void showInfo(final Player p) {
         p.sendMessage(ChatColor.YELLOW + "----==== Faction info: " + this.color + this.name + ChatColor.YELLOW + " ====----");
         p.sendMessage(ChatColor.YELLOW + "Description: " + ChatColor.WHITE + this.description);

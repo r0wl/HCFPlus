@@ -5,10 +5,12 @@ import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Objects.Selection;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class PlayerData {
     public PlayerData(){
@@ -42,6 +44,14 @@ public class PlayerData {
     }
     public Faction getFaction(Player p){
         return fPlayers.get(p);
+    }
+    public Faction getFaction(OfflinePlayer p){
+        if(p.isOnline()) return getFaction((Player) p);
+        UUID id = p.getUniqueId();
+        for(Faction f : getFactions()){
+            if(f.getMembers().contains(id) || f.getLeader().equals(id)) return f;
+        }
+        return null;
     }
     public Faction getFactionOrError(Player p) throws NotInFaction {
         if(!fPlayers.containsKey(p)){

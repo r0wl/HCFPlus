@@ -44,3 +44,6 @@ msg-must-be-in-faction: "You must be in a faction to do that!"
 msg-must-be-leader: "You must be the leader to do that!"
 msg-player-not-found: "Player not found."
 msg-no-invite: "You do not have any invitations or the faction you are trying to join is full."
+
+# PlaceholderAPI Settings
+show-color-in-placeholder: true
