@@ -4,6 +4,7 @@ import life.steeze.hcfplus.Exceptions.NotInFaction;
 import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Objects.Selection;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -18,7 +19,16 @@ public class PlayerData {
         fPlayers = new HashMap<>();
         invites = new HashMap<>();
         selections = new HashMap<>();
+
+        // In case of server /reload
+        for(Player p : Bukkit.getOnlinePlayers()){
+            for (Faction f : getFactions()) {
+                if (f.hasMember(p)) addFPlayer(p, f); break;
+            }
+        }
+
     }
+
     /*
     Loaded factions
      */
@@ -106,9 +116,6 @@ public class PlayerData {
     private HashMap<Player, Selection> selections;
     public HashMap<Player, Selection> getSelections(){
         return selections;
-    }
-    public void putSelection(Player p, Selection s){
-        selections.put(p, s);
     }
     public Selection getSelection(Player p){
         return selections.get(p);

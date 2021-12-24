@@ -2,13 +2,13 @@ package life.steeze.hcfplus.FileUtils;
 
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.HCFPlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class FactionsFile {
 
@@ -39,7 +39,6 @@ public class FactionsFile {
                 plugin.getData().addFaction(loadedFac);
             }
         }
-
     }
 
     public void saveFactions(){

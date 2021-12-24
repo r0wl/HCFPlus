@@ -42,7 +42,6 @@ public class HCFPlugin extends JavaPlugin implements CommandExecutor {
 
     @Override
     public void onEnable(){
-        if(!Bukkit.getOnlinePlayers().isEmpty()) Bukkit.broadcastMessage(ChatColor.DARK_RED + "[HCFPlus] Using " + ChatColor.BOLD + "/reload " + ChatColor.RESET + ChatColor.DARK_RED + " WILL break the plugin. Properly restarting is necessary when using HCFPlus.");
         this.playerData = new PlayerData();
         this.colorGUI = new ColorGUI();
         this.claimWand = new ClaimWand(this);
