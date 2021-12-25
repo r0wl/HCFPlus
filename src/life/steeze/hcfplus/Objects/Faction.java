@@ -51,8 +51,11 @@ public class Faction implements ConfigurationSerializable {
     }
 
     private int dtr;
+    private int maxDtr(){
+        return (this.members.size() + 2);
+    }
     public void regenDtr() {
-        if (this.dtr < this.members.size() + 1) this.dtr += 1; // Add 1 for the leader of faction
+        if (this.dtr < maxDtr()) this.dtr += 1; // Add 1 for the leader of faction
     }
     public int getDtr() {
         return this.dtr;
@@ -118,7 +121,7 @@ public class Faction implements ConfigurationSerializable {
     public Faction(final String name, final Player p, final HCFPlugin data) {
         this.name = name;
         this.leader = p.getUniqueId();
-        this.dtr = 1;
+        this.dtr = 2;
         this.data = data;
         this.data.getData().addFPlayer(p, this);
     }
@@ -178,7 +181,7 @@ public class Faction implements ConfigurationSerializable {
         for (UUID id : this.members) {
             String name;
             if (Bukkit.getOfflinePlayer(id).isOnline()) {
-                name = ChatColor.YELLOW + Bukkit.getPlayer(id).getName();
+                name = ChatColor.GREEN + Bukkit.getPlayer(id).getName();
             } else {
                 name = ChatColor.RED + Bukkit.getOfflinePlayer(id).getName();
             }
