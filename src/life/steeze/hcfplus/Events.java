@@ -7,6 +7,7 @@ import life.steeze.hcfplus.Objects.Selection;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +18,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Objects;
 
@@ -40,6 +42,17 @@ public class Events implements Listener {
         return true;
     }
 
+    @EventHandler
+    public void onPearl(ProjectileLaunchEvent e){
+        if(!(e.getEntity() instanceof EnderPearl)) return;
+        Player p = (Player) e.getEntity().getShooter();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                p.setCooldown(Material.ENDER_PEARL, (ConfigManager.PEARL_COOLDOWN*20));
+            }
+        }.runTaskLater(plugin, 1);
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {

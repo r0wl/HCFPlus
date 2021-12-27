@@ -28,6 +28,9 @@ minimum-dtr: -1
 # How often (in ticks) to regenerate 1 DTR for all factions
 dtr-regen: 36000
 
+#Enderpearl cooldown (in seconds). Vanilla Minecraft is 1 second.
+enderpearl-cooldown: 10
+
 # Set this to true to allow chat formatting (To show team names in chat)
 format-chat: true
 

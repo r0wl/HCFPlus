@@ -6,7 +6,6 @@ import static org.bukkit.ChatColor.translateAlternateColorCodes;
 public class ConfigManager {
 
     public static void loadConfig(final FileConfiguration config){
-        config.options().copyDefaults(true);
 
         MAX_TEAM_NAME = config.getInt("max-team-name");
         MAX_CLAIM_DISTANCE = config.getInt("max-claim-corner-distance");
@@ -15,6 +14,7 @@ public class ConfigManager {
         MAX_MEMBERS = config.getInt("max-team-size");
         DTR_REGEN = config.getInt("dtr-regen");
         MINIMUM_DTR = config.getInt("minimum-dtr");
+        PEARL_COOLDOWN = config.getInt("enderpearl-cooldown");
 
         FORMATTED_CHAT = config.getString("formatted-chat");
         NO_TEAM_FORMATTED_CHAT = config.getString("no-team-formatted-chat");
@@ -44,6 +44,7 @@ public class ConfigManager {
     public static int MAX_DESCRIPTION_LENGTH;
     public static int DTR_REGEN;
     public static int MINIMUM_DTR;
+    public static int PEARL_COOLDOWN;
     public static boolean FORMAT_CHAT;
     public static boolean USE_KITS;
     public static boolean ENABLE_RAIDING;

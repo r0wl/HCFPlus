@@ -9,8 +9,6 @@ import life.steeze.hcfplus.Timers.DTRTimer;
 import life.steeze.hcfplus.Utilities.ClaimWand;
 import life.steeze.hcfplus.Utilities.ColorGUI;
 import life.steeze.hcfplus.Utilities.PlayerData;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.inventory.Inventory;
@@ -47,6 +45,8 @@ public class HCFPlugin extends JavaPlugin implements CommandExecutor {
         this.claimWand = new ClaimWand(this);
         getCommand("faction").setExecutor(new FCommand(this));
         saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
+        saveConfig();
         ConfigManager.loadConfig(this.getConfig());
         factionsFile = new FactionsFile(this);
         factionsFile.loadFactions();
