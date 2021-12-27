@@ -11,6 +11,7 @@ public class ReloadCommand implements SubCommand {
     @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) throws NotInFaction {
         if(!player.hasPermission("hcf.admin")) return;
+        plugin.reloadConfig();
         ConfigManager.loadConfig(plugin.getConfig());
         player.sendMessage(ChatColor.YELLOW + "Reloading HCFPlus config.yml");
     }
