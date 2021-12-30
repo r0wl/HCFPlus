@@ -42,11 +42,16 @@ no-team-formatted-chat: "{name} > {message}"
 mob-spawn-in-claims: false
 
 # Configurable Messages Below
-msg-success: "Success!"
-msg-must-be-in-faction: "You must be in a faction to do that!"
-msg-must-be-leader: "You must be the leader to do that!"
-msg-player-not-found: "Player not found."
-msg-no-invite: "You do not have any invitations or the faction you are trying to join is full."
+msg-success: "&eSuccess!"
+msg-must-be-in-faction: "&cYou must be in a faction to do that!"
+msg-must-be-leader: "&cYou must be the leader to do that!"
+msg-player-not-found: "&cPlayer not found."
+msg-no-invite: "&cYou do not have any invitations or the faction you are trying to join is full."
+already-has-claim: "&cYour team already has a claim!"
+tried-claim-no-selection: "&cYou must make a selection with /pos1 & /pos2, or use this claiming wand!"
+claim-too-big: "&cClaim too big."
+claim-too-small-or-narrow: "&cClaim too small or narrow"
+land-already-claimed: "&cLand is already claimed."
 
 # PlaceholderAPI Settings
 show-color-in-placeholder: true

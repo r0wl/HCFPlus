@@ -18,11 +18,11 @@ public class ClaimCommand implements SubCommand {
             return;
         }
         if (f.hasClaim()) {
-            p.sendMessage(ChatColor.RED + "Your team already has a claim!");
+            p.sendMessage(ConfigManager.ALREADY_HAS_CLAIM);
             return;
         }
         if (!plugin.getData().hasSelection(p)) {
-            p.sendMessage(ChatColor.RED + "You must make a selection with /pos1 & /pos2, or use this claiming wand!");
+            p.sendMessage(ConfigManager.TRIED_CLAIM_NO_SELECTION);
             p.getInventory().addItem(plugin.getWand());
             return;
         }

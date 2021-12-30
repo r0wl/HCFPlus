@@ -24,6 +24,11 @@ public class ConfigManager {
         MUST_BE_LEADER = translateAlternateColorCodes('&', config.getString("msg-must-be-leader"));
         PLAYER_NOT_FOUND = translateAlternateColorCodes('&', config.getString("msg-player-not-found"));
         NO_INVITE = translateAlternateColorCodes('&', config.getString("msg-no-invite"));
+        ALREADY_HAS_CLAIM = translateAlternateColorCodes('&', config.getString("already-has-claim"));
+        TRIED_CLAIM_NO_SELECTION = translateAlternateColorCodes('&', config.getString("tried-claim-no-selection"));
+        CLAIM_TOO_BIG = translateAlternateColorCodes('&', config.getString("claim-too-big"));
+        CLAIM_TOO_NARROW = translateAlternateColorCodes('&', config.getString("claim-too-small-or-narrow"));
+        LAND_ALREADY_CLAIMED = translateAlternateColorCodes('&', config.getString("land-already-claimed"));
 
         FORMAT_CHAT = config.getBoolean("format-chat");
         MOB_SPAWN_IN_CLAIMS = config.getBoolean("mob-spawn-in-claims");
@@ -50,12 +55,17 @@ public class ConfigManager {
     public static boolean ENABLE_RAIDING;
     public static boolean SHOW_COORDS_IN_INFO;
     public static boolean SHOW_COLOR_IN_PLACEHOLDER;
+    public static boolean MOB_SPAWN_IN_CLAIMS;
     public static String FORMATTED_CHAT;
     public static String NO_TEAM_FORMATTED_CHAT;
-    public static boolean MOB_SPAWN_IN_CLAIMS;
     public static String NOT_IN_FACTION;
     public static String SUCCESS;
     public static String MUST_BE_LEADER;
     public static String PLAYER_NOT_FOUND;
     public static String NO_INVITE;
+    public static String ALREADY_HAS_CLAIM;
+    public static String TRIED_CLAIM_NO_SELECTION;
+    public static String CLAIM_TOO_BIG;
+    public static String CLAIM_TOO_NARROW;
+    public static String LAND_ALREADY_CLAIMED;
 }
