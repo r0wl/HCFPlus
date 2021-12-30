@@ -16,8 +16,8 @@ public class ConfigManager {
         MINIMUM_DTR = config.getInt("minimum-dtr");
         PEARL_COOLDOWN = config.getInt("enderpearl-cooldown");
 
-        FORMATTED_CHAT = config.getString("formatted-chat");
-        NO_TEAM_FORMATTED_CHAT = config.getString("no-team-formatted-chat");
+        FORMATTED_CHAT = translateAlternateColorCodes('&', config.getString("formatted-chat"));
+        NO_TEAM_FORMATTED_CHAT = translateAlternateColorCodes('&', config.getString("no-team-formatted-chat"));
 
         NOT_IN_FACTION = translateAlternateColorCodes('&', config.getString("msg-must-be-in-faction"));
         SUCCESS = translateAlternateColorCodes('&', config.getString("msg-success"));
