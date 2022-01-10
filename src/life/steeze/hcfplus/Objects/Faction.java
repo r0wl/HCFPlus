@@ -25,15 +25,14 @@ public class Faction implements ConfigurationSerializable {
     private Location home;
     public void setHome(Player p) {
         if (this.claim == null) {
-            p.sendMessage(ChatColor.RED + "You need to have a claim!");
+            p.sendMessage(ConfigManager.MUST_HAVE_CLAIM);
             return;
         }
         if (this.claim.containsLocation(p.getLocation())) {
-            p.sendMessage(ChatColor.YELLOW + "Setting home...");
             this.home = p.getLocation();
-            p.sendMessage(ChatColor.YELLOW + "Done!");
+            p.sendMessage(ConfigManager.SUCCESS);
         } else {
-            p.sendMessage(ChatColor.RED + "Your home must be within your claim");
+            p.sendMessage(ConfigManager.HOME_MUST_BE_IN_CLAIM);
         }
 
     }

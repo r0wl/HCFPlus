@@ -52,6 +52,8 @@ tried-claim-no-selection: "&cYou must make a selection with /pos1 & /pos2, or us
 claim-too-big: "&cClaim too big."
 claim-too-small-or-narrow: "&cClaim too small or narrow"
 land-already-claimed: "&cLand is already claimed."
+must-have-claim: "&cYou need to have a claim!"
+home-must-be-in-claim: "&cYour home must be inside your claim!"
 
 # PlaceholderAPI Settings
 show-color-in-placeholder: true

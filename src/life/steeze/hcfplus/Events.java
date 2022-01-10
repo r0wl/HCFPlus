@@ -7,6 +7,7 @@ import life.steeze.hcfplus.Objects.Selection;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -106,18 +107,20 @@ public class Events implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if (e.getClickedBlock() == null) return;
+        Block block = e.getClickedBlock();
+        Location location = block.getLocation();
         Player p = e.getPlayer();
         if(plugin.getClaimWand().isWand(e.getItem())) {
             if (e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
                 Selection s = plugin.getData().getSelection(p);
                 if (s == null) {
                     Selection selection = new Selection();
-                    selection.setPos1(e.getClickedBlock().getLocation());
+                    selection.setPos1(location);
                     plugin.getData().getSelections().put(p, selection);
                     p.sendMessage(ChatColor.YELLOW + "Position 1 set.");
                     return;
                 }
-                s.setPos1(e.getClickedBlock().getLocation());
+                s.setPos1(location);
                 p.sendMessage(ChatColor.YELLOW + "Position 1 set.");
                 return;
             }
@@ -125,18 +128,19 @@ public class Events implements Listener {
                 Selection s = plugin.getData().getSelection(p);
                 if (s == null) {
                     Selection selection = new Selection();
-                    selection.setPos2(e.getClickedBlock().getLocation());
+                    selection.setPos2(location);
                     plugin.getData().getSelections().put(p, selection);
                     p.sendMessage(ChatColor.YELLOW + "Position 2 set.");
                     return;
                 }
-                s.setPos2(e.getClickedBlock().getLocation());
+                s.setPos2(location);
                 p.sendMessage(ChatColor.YELLOW + "Position 2 set.");
                 return;
             }
         }
         if(e.getPlayer().hasPermission("hcf.admin")) return;
-        if(!isActionLegal(p, e.getClickedBlock().getLocation())) {
+        if(!block.getType().isInteractable()) return;
+        if(!isActionLegal(p, location)) {
             e.getPlayer().sendMessage(ChatColor.RED + "Land is claimed");
             e.setCancelled(true);
         }

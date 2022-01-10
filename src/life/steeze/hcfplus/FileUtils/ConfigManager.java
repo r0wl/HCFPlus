@@ -29,6 +29,8 @@ public class ConfigManager {
         CLAIM_TOO_BIG = translateAlternateColorCodes('&', config.getString("claim-too-big"));
         CLAIM_TOO_NARROW = translateAlternateColorCodes('&', config.getString("claim-too-small-or-narrow"));
         LAND_ALREADY_CLAIMED = translateAlternateColorCodes('&', config.getString("land-already-claimed"));
+        MUST_HAVE_CLAIM = translateAlternateColorCodes('&', config.getString("must-have-claim"));
+        HOME_MUST_BE_IN_CLAIM = translateAlternateColorCodes('&', config.getString("home-must-be-in-claim"));
 
         FORMAT_CHAT = config.getBoolean("format-chat");
         MOB_SPAWN_IN_CLAIMS = config.getBoolean("mob-spawn-in-claims");
@@ -68,4 +70,6 @@ public class ConfigManager {
     public static String CLAIM_TOO_BIG;
     public static String CLAIM_TOO_NARROW;
     public static String LAND_ALREADY_CLAIMED;
+    public static String MUST_HAVE_CLAIM;
+    public static String HOME_MUST_BE_IN_CLAIM;
 }
