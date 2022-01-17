@@ -16,7 +16,7 @@ public class CreateCommand implements SubCommand {
     public void perform(Player p, String[] args, HCFPlugin plugin) {
         PlayerData data = plugin.getData();
         if (data.isPlayerInFaction(p)) {
-            p.sendMessage(ChatColor.RED + "You are already in a faction");
+            p.sendMessage(ConfigManager.ALREADY_IN_FACTION);
             return;
         }
         if(args.length == 0){
@@ -24,11 +24,11 @@ public class CreateCommand implements SubCommand {
             return;
         }
         if(args[0].length() > ConfigManager.MAX_TEAM_NAME){
-            p.sendMessage(ChatColor.RED + "Faction name is too long");
+            p.sendMessage(ConfigManager.NAME_TOO_LONG);
             return;
         }
         if (data.getFactionStrictFacName(args[0]) != null) {
-            p.sendMessage(ChatColor.RED + "Faction name is taken");
+            p.sendMessage(ConfigManager.NAME_TAKEN);
             return;
         }
         Pattern pattern = Pattern.compile("[^a-zA-Z]");
@@ -36,9 +36,9 @@ public class CreateCommand implements SubCommand {
         if (!hasBadChar) {
             Faction newFac = new Faction(args[0], p, plugin);
             data.addFaction(newFac);
-            Bukkit.broadcastMessage(ChatColor.YELLOW + "Faction " + ChatColor.WHITE + args[0] + ChatColor.YELLOW + " has been founded!");
+            Bukkit.broadcastMessage(ConfigManager.FACTION_FOUNDED.replaceAll("\\{faction}", args[0]));
         } else {
-            p.sendMessage(ChatColor.RED + "Try another name with A-Z only");
+            p.sendMessage(ConfigManager.INVALID_NAME);
         }
     }
 }

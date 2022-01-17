@@ -54,6 +54,11 @@ claim-too-small-or-narrow: "&cClaim too small or narrow"
 land-already-claimed: "&cLand is already claimed."
 must-have-claim: "&cYou need to have a claim!"
 home-must-be-in-claim: "&cYour home must be inside your claim!"
+already-in-faction: "&cYou are already in a faction!"
+name-too-long: "&cFaction name is too long!"
+name-taken: "&cThat name is already taken!"
+invalid-name: "&cTry another name with A-Z only!"
+faction-founded: "&eFaction &f{faction} &ehas been founded!" #Use {faction} to get the name of the founded faction
 
 # PlaceholderAPI Settings
 show-color-in-placeholder: true

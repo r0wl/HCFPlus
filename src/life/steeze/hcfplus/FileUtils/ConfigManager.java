@@ -31,6 +31,11 @@ public class ConfigManager {
         LAND_ALREADY_CLAIMED = translateAlternateColorCodes('&', config.getString("land-already-claimed"));
         MUST_HAVE_CLAIM = translateAlternateColorCodes('&', config.getString("must-have-claim"));
         HOME_MUST_BE_IN_CLAIM = translateAlternateColorCodes('&', config.getString("home-must-be-in-claim"));
+        ALREADY_IN_FACTION = translateAlternateColorCodes('&', config.getString("already-in-faction"));
+        NAME_TOO_LONG = translateAlternateColorCodes('&', config.getString("name-too-long"));
+        NAME_TAKEN = translateAlternateColorCodes('&', config.getString("name-taken"));
+        INVALID_NAME = translateAlternateColorCodes('&', config.getString("invalid-name"));
+        FACTION_FOUNDED = translateAlternateColorCodes('&', config.getString("faction-founded"));
 
         FORMAT_CHAT = config.getBoolean("format-chat");
         MOB_SPAWN_IN_CLAIMS = config.getBoolean("mob-spawn-in-claims");
@@ -72,4 +77,9 @@ public class ConfigManager {
     public static String LAND_ALREADY_CLAIMED;
     public static String MUST_HAVE_CLAIM;
     public static String HOME_MUST_BE_IN_CLAIM;
+    public static String ALREADY_IN_FACTION;
+    public static String NAME_TOO_LONG;
+    public static String NAME_TAKEN;
+    public static String INVALID_NAME;
+    public static String FACTION_FOUNDED;
 }
