@@ -11,7 +11,7 @@ public class ConfigManager {
         MAX_CLAIM_DISTANCE = config.getInt("max-claim-corner-distance");
         MIN_CLAIM_WIDTH = config.getInt("min-claim-width");
         MAX_DESCRIPTION_LENGTH = config.getInt("max-description-length");
-        MAX_MEMBERS = config.getInt("max-team-size");
+        MAX_MEMBERS = config.getInt("max-members");
         DTR_REGEN = config.getInt("dtr-regen");
         MINIMUM_DTR = config.getInt("minimum-dtr");
         PEARL_COOLDOWN = config.getInt("enderpearl-cooldown");
