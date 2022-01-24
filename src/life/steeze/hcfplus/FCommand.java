@@ -48,6 +48,7 @@ public class FCommand implements CommandExecutor {
         subCommandMap.put("invite", new InviteCommand());
         subCommandMap.put("setleader", new SetleaderCommand());
         subCommandMap.put("reload", new ReloadCommand());
+        subCommandMap.put("version", new VersionCommand());
     }
 
 
