@@ -131,15 +131,18 @@ public class Events implements Listener {
                     selection.setPos2(location);
                     plugin.getData().getSelections().put(p, selection);
                     p.sendMessage(ChatColor.YELLOW + "Position 2 set.");
+                    e.setCancelled(true);
                     return;
                 }
                 s.setPos2(location);
                 p.sendMessage(ChatColor.YELLOW + "Position 2 set.");
+                e.setCancelled(true);
                 return;
             }
         }
         if(e.getPlayer().hasPermission("hcf.admin")) return;
         if(!block.getType().isInteractable()) return;
+        if(p.isSneaking()) return;
         if(!isActionLegal(p, location)) {
             e.getPlayer().sendMessage(ChatColor.RED + "Land is claimed");
             e.setCancelled(true);
