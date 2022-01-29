@@ -145,7 +145,7 @@ public class Events implements Listener {
         if(!isActionLegal(p, location)) {
             e.getPlayer().sendMessage(ChatColor.RED + "Land is claimed");
             e.setUseInteractedBlock(Event.Result.DENY);
-            e.setUseItemInHand(Event.Result.ALLOW);
+            e.setUseItemInHand(Event.Result.DEFAULT);
         }
     }
 
