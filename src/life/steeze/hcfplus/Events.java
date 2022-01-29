@@ -11,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
@@ -141,11 +142,10 @@ public class Events implements Listener {
             }
         }
         if(e.getPlayer().hasPermission("hcf.admin")) return;
-        if(!block.getType().isInteractable()) return;
-        if(p.isSneaking()) return;
         if(!isActionLegal(p, location)) {
             e.getPlayer().sendMessage(ChatColor.RED + "Land is claimed");
-            e.setCancelled(true);
+            e.setUseInteractedBlock(Event.Result.DENY);
+            e.setUseItemInHand(Event.Result.ALLOW);
         }
     }
 
