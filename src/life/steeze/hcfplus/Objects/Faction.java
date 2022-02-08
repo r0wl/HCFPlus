@@ -50,7 +50,7 @@ public class Faction implements ConfigurationSerializable {
     }
 
     private int dtr;
-    private int maxDtr(){
+    public int maxDtr(){
         return Math.min((this.members.size() + 2), ConfigManager.MAXIMUM_DTR);
     }
     public void regenDtr() {

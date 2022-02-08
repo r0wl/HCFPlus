@@ -13,7 +13,7 @@ public class ListCommand implements SubCommand {
         for (Faction listed : plugin.getData().getFactions()) {
             p.sendMessage(listed.getColor() + listed.getName() + ChatColor.YELLOW +
                     " | " + ChatColor.WHITE + (listed.getMembers().size() + 1) + " members." + " | " +
-                    listed.getDtr() + "/" + (listed.getMembers().size() + 1) + " DTR");
+                    listed.getDtr() + "/" + (listed.maxDtr()) + " DTR");
         }
     }
 }
