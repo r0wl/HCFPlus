@@ -25,6 +25,9 @@ max-members: 5
 # Minimum DTR so it does not drop too low. This does not affect the raidability threshold
 minimum-dtr: -1
 
+#Maximum DTR (So you can have more faction members without too high of DTR)
+maximum-dtr: 8
+
 # How often (in ticks) to regenerate 1 DTR for all factions
 dtr-regen: 36000
 
