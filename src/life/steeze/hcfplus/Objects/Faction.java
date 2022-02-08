@@ -51,7 +51,7 @@ public class Faction implements ConfigurationSerializable {
 
     private int dtr;
     private int maxDtr(){
-        return (this.members.size() + 2);
+        return Math.min((this.members.size() + 2), ConfigManager.MAXIMUM_DTR);
     }
     public void regenDtr() {
         if (this.dtr < maxDtr()) this.dtr += 1; // Add 1 for the leader of faction

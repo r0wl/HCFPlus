@@ -14,7 +14,9 @@ public class ConfigManager {
         MAX_MEMBERS = config.getInt("max-members");
         DTR_REGEN = config.getInt("dtr-regen");
         MINIMUM_DTR = config.getInt("minimum-dtr");
+        MAXIMUM_DTR = config.getInt("maximum-dtr");
         PEARL_COOLDOWN = config.getInt("enderpearl-cooldown");
+
 
         FORMATTED_CHAT = translateAlternateColorCodes('&', config.getString("formatted-chat"));
         NO_TEAM_FORMATTED_CHAT = translateAlternateColorCodes('&', config.getString("no-team-formatted-chat"));
@@ -49,6 +51,7 @@ public class ConfigManager {
     /*
     Configurable things
      */
+    public static int MAXIMUM_DTR;
     public static int MAX_TEAM_NAME;
     public static int MAX_MEMBERS;
     public static int MAX_CLAIM_DISTANCE;

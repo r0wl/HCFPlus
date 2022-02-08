@@ -84,7 +84,9 @@ public class Events implements Listener {
         if (e.isCancelled()) return;
         if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
             Player a = (Player) e.getEntity(), b = (Player) e.getDamager();
-            if (plugin.getData().getFaction(a).equals(plugin.getData().getFaction(b))) e.setCancelled(true);
+            Faction fA = plugin.getData().getFaction(a), fB = plugin.getData().getFaction(b);
+            if(fA == null || fB == null) return;
+            if (fA.equals(fB)) e.setCancelled(true);
         }
     }
 
