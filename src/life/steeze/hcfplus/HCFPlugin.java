@@ -19,6 +19,7 @@ public class HCFPlugin extends JavaPlugin implements CommandExecutor {
 
     private AbilitiesTimer abilities;
     private DTRTimer regen;
+    private Events events;
 
     private PlayerData playerData;
     public PlayerData getData(){
@@ -38,8 +39,11 @@ public class HCFPlugin extends JavaPlugin implements CommandExecutor {
 
     private FactionsFile factionsFile;
 
+
+
     @Override
     public void onEnable(){
+        this.events = new Events(this);
         this.playerData = new PlayerData();
         this.colorGUI = new ColorGUI();
         this.claimWand = new ClaimWand(this);

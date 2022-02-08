@@ -27,6 +27,7 @@ public class FCommand implements CommandExecutor {
         commandSender.sendMessage(ChatColor.WHITE + "/f home" + ChatColor.YELLOW + " - Go to your faction's home");
         commandSender.sendMessage(ChatColor.WHITE + "/f claim" + ChatColor.YELLOW + " - Obtain a wand to make your faction's claim");
         commandSender.sendMessage(ChatColor.WHITE + "/f unclaim" + ChatColor.YELLOW + " - Undo your claim");
+        commandSender.sendMessage(ChatColor.WHITE + "/f notify <message>" + ChatColor.YELLOW + " - Send a message to your teammates");
     }
     private Map<String, SubCommand> subCommandMap = new HashMap<>();
 
@@ -49,6 +50,7 @@ public class FCommand implements CommandExecutor {
         subCommandMap.put("setleader", new SetleaderCommand());
         subCommandMap.put("reload", new ReloadCommand());
         subCommandMap.put("version", new VersionCommand());
+        subCommandMap.put("notify", new NotifyCommand());
     }
 
 

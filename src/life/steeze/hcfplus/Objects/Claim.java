@@ -23,8 +23,8 @@ public class Claim implements ConfigurationSerializable {
         this.z = s.pos1().y;
         this.x2 = s.pos2().x;
         this.z2 = s.pos2().y;
-        this.bounds = new BoundingBox(this.x,0,this.z,this.x2,255,this.z2);
         this.world = s.getWorld();
+        this.bounds = new BoundingBox(this.x, world.getMinHeight(), this.z, this.x2,world.getMaxHeight(),this.z2);
         this.plugin = plugin;
     }
 
@@ -49,8 +49,8 @@ public class Claim implements ConfigurationSerializable {
         this.z = (int) map.get("z");
         this.x2 = (int) map.get("x2");
         this.z2 = (int) map.get("z2");
-        this.bounds = new BoundingBox(this.x,0,this.z,this.x2,255,this.z2);
         this.world = Bukkit.getWorld((String) map.get("world"));
+        this.bounds = new BoundingBox(this.x,world.getMinHeight(),this.z,this.x2,world.getMaxHeight(),this.z2);
         this.plugin = plugin;
     }
 
@@ -59,10 +59,7 @@ public class Claim implements ConfigurationSerializable {
         return this.bounds;
     }
     public boolean containsLocation(Location l){
-        if(this.bounds.contains(l.toVector()) && this.world.equals(l.getWorld())){
-            return true;
-        }
-        return false;
+        return this.bounds.contains(l.toVector()) && this.world.equals(l.getWorld());
     }
     @Override
     public String toString(){
