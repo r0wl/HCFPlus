@@ -5,13 +5,10 @@ import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Objects.Selection;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerData {
     public PlayerData(){
@@ -19,6 +16,7 @@ public class PlayerData {
         fPlayers = new HashMap<>();
         invites = new HashMap<>();
         selections = new HashMap<>();
+        pendingTeleports = new HashMap<>();
 
         // In case of server /reload
         for(Player p : Bukkit.getOnlinePlayers()){
@@ -27,6 +25,14 @@ public class PlayerData {
             }
         }
 
+    }
+
+    /*
+    Pending teleports
+     */
+    private HashMap<Player, Integer> pendingTeleports;
+    public HashMap<Player, Integer> getPendingTeleports(){
+        return pendingTeleports;
     }
 
     /*

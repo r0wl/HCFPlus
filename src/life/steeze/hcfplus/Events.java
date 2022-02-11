@@ -30,7 +30,6 @@ public class Events implements Listener {
         this.plugin = plugin;
     }
 
-
     boolean isActionLegal(Player player, Location event){
         Faction playerFac = plugin.getData().getFaction(player);
         for(Faction f : plugin.getData().getFactions()){
@@ -42,6 +41,32 @@ public class Events implements Listener {
             }
         }
         return true;
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent e){
+        //check for command. some plugins will not specify command caused teleport and thus will not work with this
+        if(!e.getCause().equals(PlayerTeleportEvent.TeleportCause.COMMAND)) return;
+
+        //Cancel command-caused teleport
+        e.setCancelled(true);
+
+        //Get tp info
+        Player p = e.getPlayer();
+        Location l = e.getTo(); if(l == null) return;
+
+        //create pending teleport
+        int r = new BukkitRunnable() {
+            @Override
+            public void run() {
+                //ensure cause is not command
+                p.teleport(l, PlayerTeleportEvent.TeleportCause.PLUGIN);
+                plugin.getData().getPendingTeleports().remove(p);
+            }
+        }.runTaskLater(plugin, ConfigManager.TELEPORT_DELAY).getTaskId();
+
+        //add to list so taking damage can cancel teleport
+        plugin.getData().getPendingTeleports().put(p, r);
     }
 
     @EventHandler

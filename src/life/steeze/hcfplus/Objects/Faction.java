@@ -8,6 +8,8 @@ import org.bukkit.Location;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
+
 import java.util.*;
 
 public class Faction implements ConfigurationSerializable {
@@ -38,7 +40,7 @@ public class Faction implements ConfigurationSerializable {
     }
     public void tpHome(Player p) {
         if (this.home != null) {
-            p.teleport(this.home);
+            p.teleport(this.home, PlayerTeleportEvent.TeleportCause.COMMAND);
         } else {
             p.sendMessage(ChatColor.RED + "Your faction does not have a home.");
         }

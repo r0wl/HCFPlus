@@ -7,6 +7,9 @@ enable-raiding: true
 # Show faction claim coordinates when you do /f info
 show-coords-in-info: true
 
+# Teleport delay (seconds). This affects any teleportation with Cause: COMMAND. May not work with some plugins
+teleport-delay: 5
+
 # Maximum team name (in characters)
 max-team-name: 15
 
