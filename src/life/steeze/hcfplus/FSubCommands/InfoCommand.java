@@ -1,5 +1,6 @@
 package life.steeze.hcfplus.FSubCommands;
 
+import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.HCFPlugin;
 import life.steeze.hcfplus.SubCommand;
 import life.steeze.hcfplus.Exceptions.NotInFaction;
@@ -29,6 +30,6 @@ public class InfoCommand implements SubCommand {
             targetF.showInfo(player);
             return;
         }
-        player.sendMessage(ChatColor.YELLOW + "No faction or player found by that name");
+        player.sendMessage(ConfigManager.NOT_A_PLAYER_OR_FACTION);
     }
 }

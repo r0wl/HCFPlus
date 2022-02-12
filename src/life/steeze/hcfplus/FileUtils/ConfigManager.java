@@ -40,6 +40,7 @@ public class ConfigManager {
         INVALID_NAME = translateAlternateColorCodes('&', config.getString("invalid-name"));
         FACTION_FOUNDED = translateAlternateColorCodes('&', config.getString("faction-founded"));
         TELEPORT_PENDING = translateAlternateColorCodes('&', config.getString("teleport-pending").replaceAll("\\{seconds}", Long.toString((TELEPORT_DELAY/20))));
+        NOT_A_PLAYER_OR_FACTION = translateAlternateColorCodes('&', config.getString("not-a-player-or-faction"));
 
         FORMAT_CHAT = config.getBoolean("format-chat");
         MOB_SPAWN_IN_CLAIMS = config.getBoolean("mob-spawn-in-claims");
@@ -77,6 +78,7 @@ public class ConfigManager {
     public static String SUCCESS;
     public static String MUST_BE_LEADER;
     public static String PLAYER_NOT_FOUND;
+    public static String NOT_A_PLAYER_OR_FACTION;
     public static String NO_INVITE;
     public static String ALREADY_HAS_CLAIM;
     public static String TRIED_CLAIM_NO_SELECTION;
