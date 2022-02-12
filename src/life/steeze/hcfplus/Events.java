@@ -4,6 +4,7 @@ package life.steeze.hcfplus;
 import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Objects.Selection;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,6 +22,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.Objects;
 
@@ -33,12 +35,10 @@ public class Events implements Listener {
     boolean isActionLegal(Player player, Location event){
         Faction playerFac = plugin.getData().getFaction(player);
         for(Faction f : plugin.getData().getFactions()){
-            if(f.hasClaim()){
-                if(f.getClaim().containsLocation(event)){
-                    if(f.getDtr() <= 0 && ConfigManager.ENABLE_RAIDING) return true;
-                    return Objects.equals(f, playerFac);
-                }
-            }
+            if(!f.hasClaim()) continue;
+            if(!f.getClaim().containsLocation(event)) continue;
+            if(f.getDtr() <= 0 && ConfigManager.ENABLE_RAIDING) return true;
+            return Objects.equals(f, playerFac);
         }
         return true;
     }
@@ -55,12 +55,16 @@ public class Events implements Listener {
         Player p = e.getPlayer();
         Location l = e.getTo(); if(l == null) return;
 
+        //inform user of pending teleport
+        p.sendMessage(ConfigManager.TELEPORT_PENDING);
+
         //create pending teleport
         int r = new BukkitRunnable() {
             @Override
             public void run() {
-                //ensure cause is not command
+                //ensure this doesn't loop
                 p.teleport(l, PlayerTeleportEvent.TeleportCause.PLUGIN);
+                //remove pending teleport
                 plugin.getData().getPendingTeleports().remove(p);
             }
         }.runTaskLater(plugin, ConfigManager.TELEPORT_DELAY).getTaskId();
@@ -109,6 +113,12 @@ public class Events implements Listener {
         if (e.isCancelled()) return;
         if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
             Player a = (Player) e.getEntity(), b = (Player) e.getDamager();
+
+            //check if user has pending teleport and cancel
+            Integer aR = plugin.getData().getPendingTeleports().remove(a), bR = plugin.getData().getPendingTeleports().remove(b);
+            if(aR != null) Bukkit.getScheduler().cancelTask(aR);
+            if(bR != null) Bukkit.getScheduler().cancelTask(bR);
+
             Faction fA = plugin.getData().getFaction(a), fB = plugin.getData().getFaction(b);
             if(fA == null || fB == null) return;
             if (fA.equals(fB)) e.setCancelled(true);

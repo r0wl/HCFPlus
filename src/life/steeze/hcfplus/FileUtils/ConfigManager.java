@@ -39,6 +39,7 @@ public class ConfigManager {
         NAME_TAKEN = translateAlternateColorCodes('&', config.getString("name-taken"));
         INVALID_NAME = translateAlternateColorCodes('&', config.getString("invalid-name"));
         FACTION_FOUNDED = translateAlternateColorCodes('&', config.getString("faction-founded"));
+        TELEPORT_PENDING = translateAlternateColorCodes('&', config.getString("teleport-pending").replaceAll("\\{seconds}", Long.toString((TELEPORT_DELAY/20))));
 
         FORMAT_CHAT = config.getBoolean("format-chat");
         MOB_SPAWN_IN_CLAIMS = config.getBoolean("mob-spawn-in-claims");
@@ -46,6 +47,7 @@ public class ConfigManager {
         SHOW_COORDS_IN_INFO = config.getBoolean("show-coords-in-info");
         SHOW_COLOR_IN_PLACEHOLDER = config.getBoolean("show-color-in-placeholder");
         USE_KITS = config.getBoolean("use-kits");
+        USE_TP_DELAY = config.getBoolean("use-tp-delay");
 
     }
 
@@ -67,6 +69,7 @@ public class ConfigManager {
     public static boolean ENABLE_RAIDING;
     public static boolean SHOW_COORDS_IN_INFO;
     public static boolean SHOW_COLOR_IN_PLACEHOLDER;
+    public static boolean USE_TP_DELAY;
     public static boolean MOB_SPAWN_IN_CLAIMS;
     public static String FORMATTED_CHAT;
     public static String NO_TEAM_FORMATTED_CHAT;
@@ -87,4 +90,5 @@ public class ConfigManager {
     public static String NAME_TAKEN;
     public static String INVALID_NAME;
     public static String FACTION_FOUNDED;
+    public static String TELEPORT_PENDING;
 }
