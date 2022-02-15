@@ -44,36 +44,6 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onTeleport(PlayerTeleportEvent e){
-        //check for command. some plugins will not specify command caused teleport and thus will not work with this
-        if(!e.getCause().equals(PlayerTeleportEvent.TeleportCause.COMMAND)) return;
-
-        //Cancel command-caused teleport
-        e.setCancelled(true);
-
-        //Get tp info
-        Player p = e.getPlayer();
-        Location l = e.getTo(); if(l == null) return;
-
-        //inform user of pending teleport
-        p.sendMessage(ConfigManager.TELEPORT_PENDING);
-
-        //create pending teleport
-        int r = new BukkitRunnable() {
-            @Override
-            public void run() {
-                //ensure this doesn't loop
-                p.teleport(l, PlayerTeleportEvent.TeleportCause.PLUGIN);
-                //remove pending teleport
-                plugin.getData().getPendingTeleports().remove(p);
-            }
-        }.runTaskLater(plugin, ConfigManager.TELEPORT_DELAY).getTaskId();
-
-        //add to list so taking damage can cancel teleport
-        plugin.getData().getPendingTeleports().put(p, r);
-    }
-
-    @EventHandler
     public void onPearl(ProjectileLaunchEvent e){
         if(!(e.getEntity() instanceof EnderPearl)) return;
         Player p = (Player) e.getEntity().getShooter();

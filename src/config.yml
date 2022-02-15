@@ -7,13 +7,13 @@ enable-raiding: true
 # Show faction claim coordinates when you do /f info
 show-coords-in-info: true
 
-# Set to true to add a customizable delay to teleportation commands (including /f home and commands from other plugins)
+# Set to true to add a customizable delay to /f home
 use-tp-delay: false
 
-# Teleport delay (seconds). This affects any teleportation with Cause: COMMAND. May not work with some plugins
+# Teleport delay (seconds).
 teleport-delay: 5
 
-# Maximum team name (in characters)
+# Maximum team name length (in characters)
 max-team-name: 15
 
 # Maximum description length (in characters)
@@ -31,7 +31,7 @@ max-members: 5
 # Minimum DTR so it does not drop too low. This does not affect the raidability threshold
 minimum-dtr: -1
 
-#Maximum DTR (So you can have more faction members without too high of DTR)
+# Maximum DTR (So you can have more faction members without too high of DTR)
 maximum-dtr: 8
 
 # How often (in ticks) to regenerate 1 DTR for all factions
