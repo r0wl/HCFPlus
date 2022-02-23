@@ -84,14 +84,14 @@ public class AbilitiesTimer {
                 if(isPlayerWearingKit(p).equals("archer")){
                     for(PotionEffect e : archerEffect){
                         p.addPotionEffect(e);
-                    }continue;
+                    }
+                    continue;
                 }
                 if(isPlayerWearingKit(p).equals("bard")){
                     bards.add(p);
                     for(PotionEffect e : bardEffect){
                         p.addPotionEffect(e);
                     }
-                    continue;
                 }
             }
         }
@@ -106,9 +106,22 @@ public class AbilitiesTimer {
                 Material m = p.getItemInHand().getType();
                 if(m.equals(Material.SUGAR)){
                     applyBardAbility(f, PotionEffectType.SPEED, 1);
+                    continue;
                 }
                 if(m.equals(Material.BLAZE_POWDER)){
                     applyBardAbility(f, PotionEffectType.INCREASE_DAMAGE, 0);
+                    continue;
+                }
+                if(m.equals(Material.IRON_INGOT)){
+                    applyBardAbility(f, PotionEffectType.DAMAGE_RESISTANCE, 0);
+                    continue;
+                }
+                if(m.equals(Material.GHAST_TEAR)){
+                    applyBardAbility(f, PotionEffectType.REGENERATION, 0);
+                    continue;
+                }
+                if(m.equals(Material.FEATHER)){
+                    applyBardAbility(f, PotionEffectType.JUMP, 1);
                 }
             }
         }
