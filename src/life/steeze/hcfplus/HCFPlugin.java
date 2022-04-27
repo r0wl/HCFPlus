@@ -18,6 +18,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class HCFPlugin extends JavaPlugin implements CommandExecutor {
 
     private AbilitiesTimer abilities;
+
+    public AbilitiesTimer getAbilities() {
+        return abilities;
+    }
+
     private DTRTimer regen;
     private Events events;
 

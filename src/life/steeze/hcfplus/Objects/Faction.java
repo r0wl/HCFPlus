@@ -177,7 +177,7 @@ public class Faction implements ConfigurationSerializable {
     public void showInfo(final Player p) {
         p.sendMessage(ChatColor.YELLOW + "----==== Faction info: " + this.color + this.name + ChatColor.YELLOW + " ====----");
         p.sendMessage(ChatColor.YELLOW + "Description: " + ChatColor.WHITE + this.description);
-        p.sendMessage(ChatColor.YELLOW + "DTR: " + ChatColor.WHITE + this.dtr + (this.dtr <= 0 ? ChatColor.RED + "| RAIDABLE" : ""));
+        if(ConfigManager.ENABLE_RAIDING) p.sendMessage(ChatColor.YELLOW + "DTR: " + ChatColor.WHITE + this.dtr + (this.dtr <= 0 ? ChatColor.RED + "| RAIDABLE" : ""));
         p.sendMessage(ChatColor.YELLOW + "Leader: " + ChatColor.WHITE + (Bukkit.getOfflinePlayer(this.leader).isOnline() ? Bukkit.getPlayer(this.leader).getName() : Bukkit.getOfflinePlayer(this.leader).getName()));
         p.sendMessage(ChatColor.YELLOW + "Members:" + ChatColor.WHITE);
         for (UUID id : this.members) {

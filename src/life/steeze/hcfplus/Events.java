@@ -4,11 +4,14 @@ package life.steeze.hcfplus;
 import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Objects.Selection;
+import life.steeze.hcfplus.Timers.AbilitiesTimer;
+import life.steeze.hcfplus.events.ArcherHitEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -93,7 +96,17 @@ public class Events implements Listener {
             if(fA == null || fB == null) return;
             if (fA.equals(fB)) e.setCancelled(true);
         }
+        if(!ConfigManager.USE_KITS) return;
+        if(e.getEntity() instanceof Player && e.getDamager() instanceof Arrow){
+            Arrow arrow = (Arrow) e.getDamager();
+            if(!(arrow.getShooter() instanceof Player)) return;
+            Player firer = (Player) arrow.getShooter();
+            if(AbilitiesTimer.isPlayerWearingKit(firer).equals("archer")){
+                Bukkit.getPluginManager().callEvent(new ArcherHitEvent((Player) e.getEntity()));
+            }
+        }
     }
+
 
     @EventHandler
     public void dropItem(PlayerDropItemEvent e){

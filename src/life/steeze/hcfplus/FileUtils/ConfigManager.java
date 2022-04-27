@@ -17,6 +17,7 @@ public class ConfigManager {
         MAXIMUM_DTR = config.getInt("maximum-dtr");
         PEARL_COOLDOWN = config.getInt("enderpearl-cooldown");
         TELEPORT_DELAY = config.getLong("teleport-delay") * 20;
+        ARCHER_TAG_LENGTH = config.getLong("archer-tag-length") * 20;
 
 
         FORMATTED_CHAT = translateAlternateColorCodes('&', config.getString("formatted-chat"));
@@ -64,6 +65,7 @@ public class ConfigManager {
     public static int DTR_REGEN;
     public static int MINIMUM_DTR;
     public static int PEARL_COOLDOWN;
+    public static long ARCHER_TAG_LENGTH;
     public static long TELEPORT_DELAY;
     public static boolean FORMAT_CHAT;
     public static boolean USE_KITS;

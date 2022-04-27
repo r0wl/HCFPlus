@@ -1,16 +1,21 @@
 package life.steeze.hcfplus.Timers;
 
+import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.HCFPlugin;
+import life.steeze.hcfplus.events.ArcherHitEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.function.BiFunction;
 
 public class AbilitiesTimer {
 
@@ -30,7 +35,18 @@ public class AbilitiesTimer {
     static final PotionEffect[] archerEffect = {new PotionEffect(PotionEffectType.JUMP, 160, 1), new PotionEffect(PotionEffectType.SPEED, 160, 2)};
     static final PotionEffect[] bardEffect = {new PotionEffect(PotionEffectType.REGENERATION, 160, 1), new PotionEffect(PotionEffectType.SPEED, 160, 0), new PotionEffect(PotionEffectType.WEAKNESS, 120, 0), new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 160, 1)};
 
+    @EventHandler
+    public void onArcherTag(ArcherHitEvent e){
+        addArcherTagAndRemoveLater(e.getPiercedPlayer());
+    }
 
+
+    HashMap<Player, Integer> archerTagged = new HashMap<>();
+    void addArcherTagAndRemoveLater(Player p){
+        if(archerTagged.put(p, new BukkitRunnable() {@Override public void run() {archerTagged.remove(p);}}.runTaskLater(plugin, ConfigManager.ARCHER_TAG_LENGTH).getTaskId()) != null) {
+            Bukkit.getScheduler().cancelTask(archerTagged.get(p));
+        }
+    }
 
     ArrayList<Player> bards = new ArrayList<>();
     private void applyBardAbility(Faction f, PotionEffectType effect, int amplifier){
@@ -38,7 +54,7 @@ public class AbilitiesTimer {
             p.addPotionEffect(new PotionEffect(effect, 20, amplifier));
         }
     }
-    private String isPlayerWearingKit(Player p){
+    public static String isPlayerWearingKit(Player p){
         Material[] armor = new Material[4];
         int n = 0;
         for(ItemStack i : p.getInventory().getArmorContents()){
