@@ -42,15 +42,21 @@ public class AbilitiesTimer {
     }
 
 
-    public static HashMap<Player, Integer> archerTagged = new HashMap<>();
+    private HashMap<Player, Integer> archerTagged = new HashMap<>();
+    public HashMap<Player, Integer> getArcherTagged() {
+        return archerTagged;
+    }
+
     void addArcherTagAndRemoveLater(Player p){
         if(archerTagged.put(p, new BukkitRunnable() {@Override public void run() {archerTagged.remove(p);}}.runTaskLater(plugin, ConfigManager.ARCHER_TAG_LENGTH).getTaskId()) != null) {
             Bukkit.getScheduler().cancelTask(archerTagged.get(p));
         }
     }
 
-    public static ArrayList<Player> archers = new ArrayList<>();
-
+    private ArrayList<Player> archers = new ArrayList<>();
+    public ArrayList<Player> getArchers() {
+        return archers;
+    }
 
     ArrayList<Player> bards = new ArrayList<>();
     private void applyBardAbility(Faction f, PotionEffectType effect, int amplifier){

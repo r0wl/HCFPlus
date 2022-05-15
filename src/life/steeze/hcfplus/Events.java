@@ -98,14 +98,14 @@ public class Events implements Listener {
             if (fA.equals(fB)) e.setCancelled(true);
         }
         if(!ConfigManager.USE_KITS) return;
-        if(AbilitiesTimer.archerTagged.containsKey((Player) e.getEntity())){
+        if(plugin.getAbilities().getArcherTagged().containsKey((Player) e.getEntity())){
             e.setDamage(e.getDamage()*ConfigManager.ARCHER_TAG_DAMAGE_MULTIPLIER);
         }
         if(e.getEntity() instanceof Player && e.getDamager() instanceof Arrow){
             Arrow arrow = (Arrow) e.getDamager();
             if(!(arrow.getShooter() instanceof Player)) return;
             Player firer = (Player) arrow.getShooter();
-            if(AbilitiesTimer.archers.contains(firer)){
+            if(plugin.getAbilities().getArchers().contains(firer)){
                 Bukkit.getPluginManager().callEvent(new ArcherHitEvent((Player) e.getEntity()));
             }
         }
