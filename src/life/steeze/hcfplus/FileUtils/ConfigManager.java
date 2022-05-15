@@ -18,6 +18,7 @@ public class ConfigManager {
         PEARL_COOLDOWN = config.getInt("enderpearl-cooldown");
         TELEPORT_DELAY = config.getLong("teleport-delay") * 20;
         ARCHER_TAG_LENGTH = config.getLong("archer-tag-length") * 20;
+        ARCHER_TAG_DAMAGE_MULTIPLIER = config.getDouble("archer-tag-multiplier");
 
 
         FORMATTED_CHAT = translateAlternateColorCodes('&', config.getString("formatted-chat"));
@@ -42,6 +43,7 @@ public class ConfigManager {
         FACTION_FOUNDED = translateAlternateColorCodes('&', config.getString("faction-founded"));
         TELEPORT_PENDING = translateAlternateColorCodes('&', config.getString("teleport-pending").replaceAll("\\{seconds}", Long.toString((TELEPORT_DELAY/20))));
         NOT_A_PLAYER_OR_FACTION = translateAlternateColorCodes('&', config.getString("not-a-player-or-faction"));
+        ARCHER_TAGGED = translateAlternateColorCodes('&', config.getString("archer-tagged"));
 
         FORMAT_CHAT = config.getBoolean("format-chat");
         MOB_SPAWN_IN_CLAIMS = config.getBoolean("mob-spawn-in-claims");
@@ -67,6 +69,7 @@ public class ConfigManager {
     public static int PEARL_COOLDOWN;
     public static long ARCHER_TAG_LENGTH;
     public static long TELEPORT_DELAY;
+    public static double ARCHER_TAG_DAMAGE_MULTIPLIER;
     public static boolean FORMAT_CHAT;
     public static boolean USE_KITS;
     public static boolean ENABLE_RAIDING;
@@ -95,4 +98,5 @@ public class ConfigManager {
     public static String INVALID_NAME;
     public static String FACTION_FOUNDED;
     public static String TELEPORT_PENDING;
+    public static String ARCHER_TAGGED;
 }

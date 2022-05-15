@@ -131,7 +131,7 @@ public class Faction implements ConfigurationSerializable {
     public Faction(Map<String, Object> map, final HCFPlugin data) {
         this.data = data;
         this.name = (String) map.get("name");
-        this.leader = UUID.fromString((String) map.get("leader"));
+        if(map.get("leader") != null) this.leader = UUID.fromString((String) map.get("leader"));
         for (String m : (ArrayList<String>) map.get("members")) {
             this.members.add(UUID.fromString(m));
             if(Bukkit.getOfflinePlayer(UUID.fromString(m)).isOnline()) data.getData().addFPlayer(Bukkit.getPlayer(UUID.fromString(m)), this);

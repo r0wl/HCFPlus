@@ -4,6 +4,7 @@ import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.HCFPlugin;
 import life.steeze.hcfplus.events.ArcherHitEvent;
+import life.steeze.hcfplus.events.ArmorEquipEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,7 +24,6 @@ public class AbilitiesTimer {
 
     public AbilitiesTimer(HCFPlugin plugin){
         this.plugin = plugin;
-        classTimer.runTaskTimer(this.plugin, 60, 100);
         abilityTimer.runTaskTimer(this.plugin, 60, 10);
     }
 
@@ -38,15 +38,19 @@ public class AbilitiesTimer {
     @EventHandler
     public void onArcherTag(ArcherHitEvent e){
         addArcherTagAndRemoveLater(e.getPiercedPlayer());
+        e.getPiercedPlayer().sendMessage(ConfigManager.ARCHER_TAGGED);
     }
 
 
-    HashMap<Player, Integer> archerTagged = new HashMap<>();
+    public static HashMap<Player, Integer> archerTagged = new HashMap<>();
     void addArcherTagAndRemoveLater(Player p){
         if(archerTagged.put(p, new BukkitRunnable() {@Override public void run() {archerTagged.remove(p);}}.runTaskLater(plugin, ConfigManager.ARCHER_TAG_LENGTH).getTaskId()) != null) {
             Bukkit.getScheduler().cancelTask(archerTagged.get(p));
         }
     }
+
+    public static ArrayList<Player> archers = new ArrayList<>();
+
 
     ArrayList<Player> bards = new ArrayList<>();
     private void applyBardAbility(Faction f, PotionEffectType effect, int amplifier){
@@ -66,52 +70,54 @@ public class AbilitiesTimer {
         }
         if(armor[0].equals(Material.IRON_BOOTS)){
             for(int i = 1; i < 4; i++){
-                if(!armor[i].equals(minerKit[i])) return null;
+                if(!(armor[i] == minerKit[i])) return null;
             }
             return "miner";
         }
         if(armor[0].equals(Material.LEATHER_BOOTS)){
             for(int i = 1; i < 4; i++){
-                if(!armor[i].equals(archerKit[i])) return null;
+                if(!(armor[i] == archerKit[i])) return null;
             }
             return "archer";
         }
         if(armor[0].equals(Material.GOLDEN_BOOTS)){
             for(int i = 1; i < 4; i++){
-                if(!armor[i].equals(bardKit[i])) return null;
+                if(!(armor[i] == bardKit[i])) return null;
             }
             return "bard";
         }
         return null;
     }
 
-    BukkitRunnable classTimer = new BukkitRunnable() {
-        @Override
-        public void run() {
-            bards.clear();
-            for(Player p : Bukkit.getOnlinePlayers()){
-                if(isPlayerWearingKit(p) == null) continue;
-                if(isPlayerWearingKit(p).equals("miner")){
-                    for(PotionEffect e : minerEffect){
-                        p.addPotionEffect(e);
-                    }
-                    continue;
-                }
-                if(isPlayerWearingKit(p).equals("archer")){
-                    for(PotionEffect e : archerEffect){
-                        p.addPotionEffect(e);
-                    }
-                    continue;
-                }
-                if(isPlayerWearingKit(p).equals("bard")){
-                    bards.add(p);
-                    for(PotionEffect e : bardEffect){
-                        p.addPotionEffect(e);
-                    }
-                }
+    @EventHandler
+    public void playerEquipArmor(ArmorEquipEvent e){
+        Player p = e.getPlayer();
+        if(isPlayerWearingKit(p) == null){
+            archers.remove(p);
+            bards.remove(p);
+        }
+        if(isPlayerWearingKit(p).equals("miner")){
+            archers.remove(p);
+            bards.remove(p);
+            for(PotionEffect eff : minerEffect){
+                p.addPotionEffect(eff);
             }
         }
-    };
+        if(isPlayerWearingKit(p).equals("archer")){
+            bards.remove(p);
+            archers.add(p);
+            for(PotionEffect eff : archerEffect){
+                p.addPotionEffect(eff);
+            }
+        }
+        if(isPlayerWearingKit(p).equals("bard")){
+            archers.remove(p);
+            bards.add(p);
+            for(PotionEffect eff : bardEffect){
+                p.addPotionEffect(eff);
+            }
+        }
+    }
 
     BukkitRunnable abilityTimer = new BukkitRunnable() {
         @Override

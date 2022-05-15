@@ -6,6 +6,7 @@ import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Objects.Selection;
 import life.steeze.hcfplus.Timers.AbilitiesTimer;
 import life.steeze.hcfplus.events.ArcherHitEvent;
+import life.steeze.hcfplus.events.ArmorEquipEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -97,15 +98,19 @@ public class Events implements Listener {
             if (fA.equals(fB)) e.setCancelled(true);
         }
         if(!ConfigManager.USE_KITS) return;
+        if(AbilitiesTimer.archerTagged.containsKey((Player) e.getEntity())){
+            e.setDamage(e.getDamage()*ConfigManager.ARCHER_TAG_DAMAGE_MULTIPLIER);
+        }
         if(e.getEntity() instanceof Player && e.getDamager() instanceof Arrow){
             Arrow arrow = (Arrow) e.getDamager();
             if(!(arrow.getShooter() instanceof Player)) return;
             Player firer = (Player) arrow.getShooter();
-            if(AbilitiesTimer.isPlayerWearingKit(firer).equals("archer")){
+            if(AbilitiesTimer.archers.contains(firer)){
                 Bukkit.getPluginManager().callEvent(new ArcherHitEvent((Player) e.getEntity()));
             }
         }
     }
+
 
 
     @EventHandler

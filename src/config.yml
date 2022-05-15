@@ -37,8 +37,11 @@ maximum-dtr: 8
 # How often (in ticks) to regenerate 1 DTR for all factions
 dtr-regen: 36000
 
-# Archer tag duration in seconds (If kits is enabled)
-archer-tag-length: 15
+# Archer tag duration in seconds (Archer tag only works if use-kits = true)
+archer-tag-length: 5
+
+# Archer tag damage multiplier
+archer-tag-mutliplier: 1.5
 
 #Enderpearl cooldown (in seconds). Vanilla Minecraft is 1 second.
 enderpearl-cooldown: 10
@@ -73,6 +76,7 @@ name-taken: "&cThat name is already taken!"
 invalid-name: "&cTry another name with A-Z only!"
 faction-founded: "&eFaction &f{faction} &ehas been founded!" #Use {faction} to get the name of the founded faction
 teleport-pending: "&eTeleporting to faction home in &f{seconds} &eseconds. Do not engage in PvP combat."
+archer-tagged: "&cYou have been archer tagged!"
 
 # PlaceholderAPI Settings
 show-color-in-placeholder: true
