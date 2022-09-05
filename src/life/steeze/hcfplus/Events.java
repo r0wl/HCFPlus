@@ -74,6 +74,7 @@ public class Events implements Listener {
         plugin.getData().removeFPlayer(e.getPlayer());
     }
 
+
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
             Faction f = plugin.getData().getFaction(e.getEntity());
@@ -82,36 +83,64 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onDamage(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player && e.getDamager().hasPermission("hcf.admin")) return;
-        if (e.isCancelled()) return;
-        if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
-            Player a = (Player) e.getEntity(), b = (Player) e.getDamager();
-
-            //check if user has pending teleport and cancel
-            Integer aR = plugin.getData().getPendingTeleports().remove(a), bR = plugin.getData().getPendingTeleports().remove(b);
-            if(aR != null) Bukkit.getScheduler().cancelTask(aR);
-            if(bR != null) Bukkit.getScheduler().cancelTask(bR);
-
-            Faction fA = plugin.getData().getFaction(a), fB = plugin.getData().getFaction(b);
-            if(fA == null || fB == null) return;
-            if (fA.equals(fB)) e.setCancelled(true);
-        }
-        if(!ConfigManager.USE_KITS) return;
-        if(plugin.getAbilities().getArcherTagged().containsKey((Player) e.getEntity())){
-            e.setDamage(e.getDamage()*ConfigManager.ARCHER_TAG_DAMAGE_MULTIPLIER);
-        }
-        if(e.getEntity() instanceof Player && e.getDamager() instanceof Arrow){
-            Arrow arrow = (Arrow) e.getDamager();
-            if(!(arrow.getShooter() instanceof Player)) return;
-            Player firer = (Player) arrow.getShooter();
-            if(plugin.getAbilities().getArchers().contains(firer)){
-                Bukkit.getPluginManager().callEvent(new ArcherHitEvent((Player) e.getEntity()));
+    public void equippedArmor(ArmorEquipEvent e){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                plugin.getAbilities().
+                        checkForKit(e.getPlayer());
             }
-        }
+        }.runTaskLater(plugin, 1L);
     }
 
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent e) {
+        if (e.isCancelled()) return;    //return if cancelled
 
+        Player attacker = null, defender = null;    //initialize vars
+        boolean isBowAttack = false;
+
+        if(!(e.getEntity() instanceof Player)) return;    //check if defender is player and return if not
+        defender = (Player) e.getEntity();
+
+        if(e.getDamager() instanceof Player) attacker = (Player) e.getDamager();   //check if attacker is player and return if not
+        if(e.getDamager() instanceof Arrow){
+            Arrow arrow = (Arrow) e.getDamager();
+            if(!(arrow.getShooter() instanceof Player)) return;
+            attacker = (Player) arrow.getShooter();
+            isBowAttack = true;
+        }
+        if(attacker == null) return;
+
+        if (attacker.hasPermission("hcf.admin")) return;    //check if attacker is admin and allow for the attack
+
+        Faction fA = plugin.getData().getFaction(defender), fB = plugin.getData().getFaction(attacker); //check if users are in the same faction, cancel and return if so
+        if(fA == null || fB == null) return;
+        if (fA.equals(fB)){
+            e.setCancelled(true);
+            return;
+        }
+
+        Integer aR = plugin.getData().getPendingTeleports().remove(defender), bR = plugin.getData().getPendingTeleports().remove(attacker); //check if users have pending teleport and cancel
+        if(aR != null) Bukkit.getScheduler().cancelTask(aR);
+        if(bR != null) Bukkit.getScheduler().cancelTask(bR);
+
+        if(!ConfigManager.USE_KITS) return; //below this line is logic for Archer Tag, return if kits disabled
+
+        if (plugin.getAbilities().getArcherTagged().containsKey(defender)) {    //check if defender is archer tagged, increase damage
+            e.setDamage(e.getDamage() * ConfigManager.ARCHER_TAG_DAMAGE_MULTIPLIER);
+        }
+
+        if(!isBowAttack) return;    //Call archerhitevent if it is a bow attack
+        if (plugin.getAbilities().getArchers().contains(attacker)) Bukkit.getPluginManager().callEvent(new ArcherHitEvent(defender));
+
+    }
+
+    @EventHandler
+    public void onArcherTag(ArcherHitEvent e){
+        plugin.getAbilities().addArcherTagAndRemoveLater(e.getPiercedPlayer());
+        e.getPiercedPlayer().sendMessage(ConfigManager.ARCHER_TAGGED);
+    }
 
     @EventHandler
     public void dropItem(PlayerDropItemEvent e){

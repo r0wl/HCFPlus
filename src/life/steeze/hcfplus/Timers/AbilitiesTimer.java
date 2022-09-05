@@ -25,21 +25,18 @@ public class AbilitiesTimer {
     public AbilitiesTimer(HCFPlugin plugin){
         this.plugin = plugin;
         abilityTimer.runTaskTimer(this.plugin, 60, 10);
+        effectTimer.runTaskTimer(this.plugin, 60, 80L);
     }
 
     static final Material[] minerKit = {Material.IRON_BOOTS, Material.IRON_LEGGINGS, Material.IRON_CHESTPLATE, Material.IRON_HELMET};
     static final Material[] archerKit = {Material.LEATHER_BOOTS, Material.LEATHER_LEGGINGS, Material.LEATHER_CHESTPLATE, Material.LEATHER_HELMET};
     static final Material[] bardKit = {Material.GOLDEN_BOOTS, Material.GOLDEN_LEGGINGS, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_HELMET};
 
-    static final PotionEffect[] minerEffect = {new PotionEffect(PotionEffectType.FAST_DIGGING, 360, 1), new PotionEffect(PotionEffectType.NIGHT_VISION, 160, 0)};
+    static final PotionEffect[] minerEffect = {new PotionEffect(PotionEffectType.FAST_DIGGING, 160, 1), new PotionEffect(PotionEffectType.NIGHT_VISION, 360, 0)};
     static final PotionEffect[] archerEffect = {new PotionEffect(PotionEffectType.JUMP, 160, 1), new PotionEffect(PotionEffectType.SPEED, 160, 2)};
     static final PotionEffect[] bardEffect = {new PotionEffect(PotionEffectType.REGENERATION, 160, 1), new PotionEffect(PotionEffectType.SPEED, 160, 0), new PotionEffect(PotionEffectType.WEAKNESS, 120, 0), new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 160, 1)};
 
-    @EventHandler
-    public void onArcherTag(ArcherHitEvent e){
-        addArcherTagAndRemoveLater(e.getPiercedPlayer());
-        e.getPiercedPlayer().sendMessage(ConfigManager.ARCHER_TAGGED);
-    }
+
 
 
     private HashMap<Player, Integer> archerTagged = new HashMap<>();
@@ -47,11 +44,13 @@ public class AbilitiesTimer {
         return archerTagged;
     }
 
-    void addArcherTagAndRemoveLater(Player p){
+    public void addArcherTagAndRemoveLater(Player p){
         if(archerTagged.put(p, new BukkitRunnable() {@Override public void run() {archerTagged.remove(p);}}.runTaskLater(plugin, ConfigManager.ARCHER_TAG_LENGTH).getTaskId()) != null) {
             Bukkit.getScheduler().cancelTask(archerTagged.get(p));
         }
     }
+
+    private ArrayList<Player> miners = new ArrayList<>();
 
     private ArrayList<Player> archers = new ArrayList<>();
     public ArrayList<Player> getArchers() {
@@ -95,35 +94,60 @@ public class AbilitiesTimer {
         return null;
     }
 
-    @EventHandler
-    public void playerEquipArmor(ArmorEquipEvent e){
-        Player p = e.getPlayer();
+    public void checkForKit(Player p){
         if(isPlayerWearingKit(p) == null){
             archers.remove(p);
             bards.remove(p);
+            miners.remove(p);
+            return;
         }
         if(isPlayerWearingKit(p).equals("miner")){
             archers.remove(p);
             bards.remove(p);
+            miners.add(p);
             for(PotionEffect eff : minerEffect){
                 p.addPotionEffect(eff);
             }
+            return;
         }
         if(isPlayerWearingKit(p).equals("archer")){
             bards.remove(p);
+            miners.remove(p);
             archers.add(p);
             for(PotionEffect eff : archerEffect){
                 p.addPotionEffect(eff);
             }
+            return;
         }
         if(isPlayerWearingKit(p).equals("bard")){
             archers.remove(p);
+            miners.remove(p);
             bards.add(p);
             for(PotionEffect eff : bardEffect){
                 p.addPotionEffect(eff);
             }
         }
     }
+    BukkitRunnable effectTimer = new BukkitRunnable() {
+        @Override
+        public void run() {
+            for(Player p : bards){
+                for(PotionEffect eff : bardEffect){
+                    p.addPotionEffect(eff);
+                }
+            }
+            for(Player p : archers){
+                for(PotionEffect eff : archerEffect){
+                    p.addPotionEffect(eff);
+                }
+            }
+            for(Player p : miners){
+                for(PotionEffect eff : minerEffect){
+                    p.addPotionEffect(eff);
+                }
+            }
+        }
+    };
 
     BukkitRunnable abilityTimer = new BukkitRunnable() {
         @Override

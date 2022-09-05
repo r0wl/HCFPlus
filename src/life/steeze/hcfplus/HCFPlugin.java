@@ -9,6 +9,7 @@ import life.steeze.hcfplus.Timers.DTRTimer;
 import life.steeze.hcfplus.Utilities.ClaimWand;
 import life.steeze.hcfplus.Utilities.ColorGUI;
 import life.steeze.hcfplus.Utilities.PlayerData;
+import life.steeze.hcfplus.events.ArmorEquipEvent;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.inventory.Inventory;
@@ -43,6 +44,9 @@ public class HCFPlugin extends JavaPlugin implements CommandExecutor {
     }
 
     private FactionsFile factionsFile;
+    public FactionsFile getFactionsFile(){
+        return factionsFile;
+    }
 
 
 
@@ -53,6 +57,7 @@ public class HCFPlugin extends JavaPlugin implements CommandExecutor {
         this.colorGUI = new ColorGUI();
         this.claimWand = new ClaimWand(this);
         getCommand("faction").setExecutor(new FCommand(this));
+        getCommand("savefactions").setExecutor(new SaveFactionsCommand(this));
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
         saveConfig();
@@ -64,6 +69,7 @@ public class HCFPlugin extends JavaPlugin implements CommandExecutor {
         getServer().getPluginManager().registerEvents(new Events(this), this);
         if(ConfigManager.USE_KITS){
             abilities = new AbilitiesTimer(this);
+            ArmorEquipEvent.registerListener(this);
         }
         regen = new DTRTimer(this);
     }

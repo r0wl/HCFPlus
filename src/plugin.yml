@@ -5,6 +5,8 @@ commands:
   faction:
     description: Use factions
     aliases: [f, factions, fac]
+  savefactions:
+    description: Save factions.yml
 permissions:
   hcf.admin:
     default: op
