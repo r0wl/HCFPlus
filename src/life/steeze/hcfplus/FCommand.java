@@ -46,6 +46,7 @@ public class FCommand implements CommandExecutor {
     private final HCFPlugin plugin;
     public FCommand(final HCFPlugin inst) {
         this.plugin = inst;
+        InfoCommand info = new InfoCommand();
         subCommandMap.put("list", new ListCommand());
         subCommandMap.put("create", new CreateCommand());
         subCommandMap.put("accept", new AcceptCommand());
@@ -57,7 +58,8 @@ public class FCommand implements CommandExecutor {
         subCommandMap.put("setcolor", new SetColorCommand());
         subCommandMap.put("desc", new DescCommand());
         subCommandMap.put("kick", new KickCommand());
-        subCommandMap.put("info", new InfoCommand());
+        subCommandMap.put("info", info);
+        subCommandMap.put("who", info);
         subCommandMap.put("invite", new InviteCommand());
         subCommandMap.put("setleader", new SetleaderCommand());
         subCommandMap.put("reload", new ReloadCommand());

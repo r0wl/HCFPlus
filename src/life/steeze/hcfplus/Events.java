@@ -4,8 +4,6 @@ package life.steeze.hcfplus;
 import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Objects.Selection;
-import life.steeze.hcfplus.Timers.AbilitiesTimer;
-import life.steeze.hcfplus.events.ArcherHitEvent;
 import life.steeze.hcfplus.events.ArmorEquipEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,7 +24,6 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.Objects;
 
@@ -132,15 +129,14 @@ public class Events implements Listener {
         }
 
         if(!isBowAttack) return;    //Call archerhitevent if it is a bow attack
-        if (plugin.getAbilities().getArchers().contains(attacker)) Bukkit.getPluginManager().callEvent(new ArcherHitEvent(defender));
+        if (plugin.getAbilities().getArchers().contains(attacker)) {
+            plugin.getAbilities().addArcherTagAndRemoveLater(defender);
+            defender.sendMessage(ConfigManager.ARCHER_TAGGED);
+        }
 
     }
 
-    @EventHandler
-    public void onArcherTag(ArcherHitEvent e){
-        plugin.getAbilities().addArcherTagAndRemoveLater(e.getPiercedPlayer());
-        e.getPiercedPlayer().sendMessage(ConfigManager.ARCHER_TAGGED);
-    }
+
 
     @EventHandler
     public void dropItem(PlayerDropItemEvent e){

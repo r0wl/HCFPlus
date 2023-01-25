@@ -41,7 +41,7 @@ dtr-regen: 36000
 archer-tag-length: 5
 
 # Archer tag damage multiplier
-archer-tag-mutliplier: 1.5
+archer-tag-multiplier: 1.5
 
 #Enderpearl cooldown (in seconds). Vanilla Minecraft is 1 second.
 enderpearl-cooldown: 10

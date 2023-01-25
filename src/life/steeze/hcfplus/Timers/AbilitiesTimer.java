@@ -3,12 +3,9 @@ package life.steeze.hcfplus.Timers;
 import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.HCFPlugin;
-import life.steeze.hcfplus.events.ArcherHitEvent;
-import life.steeze.hcfplus.events.ArmorEquipEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -16,7 +13,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.function.BiFunction;
 
 public class AbilitiesTimer {
 
