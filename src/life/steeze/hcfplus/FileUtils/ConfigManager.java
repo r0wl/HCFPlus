@@ -1,6 +1,9 @@
 package life.steeze.hcfplus.FileUtils;
 
 import org.bukkit.configuration.file.FileConfiguration;
+
+import java.util.Map;
+
 import static org.bukkit.ChatColor.translateAlternateColorCodes;
 
 public class ConfigManager {

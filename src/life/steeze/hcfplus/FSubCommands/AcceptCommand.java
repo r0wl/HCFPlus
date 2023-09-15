@@ -9,10 +9,12 @@ import org.bukkit.entity.Player;
 public class AcceptCommand implements SubCommand {
     @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) {
-        if(plugin.getData().acceptInvite(player)){
-            player.sendMessage(ConfigManager.SUCCESS);
-        } else {
-            player.sendMessage(ConfigManager.NO_INVITE);
+        if(player.hasPermission("hcf.player.accept")) {
+            if(plugin.getData().acceptInvite(player)){
+                player.sendMessage(ConfigManager.SUCCESS);
+            } else {
+                player.sendMessage(ConfigManager.NO_INVITE);
+            }
         }
     }
 }

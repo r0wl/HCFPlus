@@ -11,10 +11,12 @@ import org.bukkit.entity.Player;
 public class SetColorCommand implements SubCommand {
     @Override
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
-        Faction f = plugin.getData().getFactionOrError(p);
-        if(!f.getLeader().equals(p.getUniqueId())){
-            p.sendMessage(ConfigManager.MUST_BE_LEADER);
+        if (p.hasPermission("hcf.player.setcolor")) {
+            Faction f = plugin.getData().getFactionOrError(p);
+            if (!f.getLeader().equals(p.getUniqueId())) {
+                p.sendMessage(ConfigManager.MUST_BE_LEADER);
+            }
+            p.openInventory(plugin.getColorGUI());
         }
-        p.openInventory(plugin.getColorGUI());
     }
 }

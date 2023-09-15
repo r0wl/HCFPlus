@@ -11,10 +11,12 @@ import org.bukkit.entity.Player;
 public class NotifyCommand implements SubCommand {
     @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) throws NotInFaction {
-        Faction f = plugin.getData().getFactionOrError(player);
-        if(args.length == 0){
-            player.sendMessage(ChatColor.RED + "Please supply a message");
+        if (player.hasPermission("hcf.player.notify")) {
+            Faction f = plugin.getData().getFactionOrError(player);
+            if (args.length == 0) {
+                player.sendMessage(ChatColor.RED + "Please supply a message");
+            }
+            f.broadcast(ChatColor.RED + "" + ChatColor.BOLD + "[FACTION]" + ChatColor.RESET + player.getDisplayName() + ": " + String.join(" ", args));
         }
-        f.broadcast(ChatColor.RED + "" + ChatColor.BOLD + "[FACTION]" + ChatColor.RESET + player.getDisplayName() + ": " + String.join(" ", args));
     }
 }

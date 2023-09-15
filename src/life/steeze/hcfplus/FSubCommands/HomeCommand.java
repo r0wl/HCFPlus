@@ -13,25 +13,25 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class HomeCommand implements SubCommand {
     @Override
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
+        if(p.hasPermission("hcf.player.home")) {
+            Faction f = plugin.getData().getFactionOrError(p);
 
-        Faction f = plugin.getData().getFactionOrError(p);
+            //inform user of pending teleport
+            p.sendMessage(ConfigManager.TELEPORT_PENDING);
 
-        //inform user of pending teleport
-        p.sendMessage(ConfigManager.TELEPORT_PENDING);
+            //create pending teleport
+            int r = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    //tp
+                    f.tpHome(p);
+                    //remove pending teleport
+                    plugin.getData().getPendingTeleports().remove(p);
+                }
+            }.runTaskLater(plugin, ConfigManager.TELEPORT_DELAY).getTaskId();
 
-        //create pending teleport
-        int r = new BukkitRunnable() {
-            @Override
-            public void run() {
-                //tp
-                f.tpHome(p);
-                //remove pending teleport
-                plugin.getData().getPendingTeleports().remove(p);
-            }
-        }.runTaskLater(plugin, ConfigManager.TELEPORT_DELAY).getTaskId();
-
-        //add to list so taking damage can cancel teleport
-        plugin.getData().getPendingTeleports().put(p, r);
-
+            //add to list so taking damage can cancel teleport
+            plugin.getData().getPendingTeleports().put(p, r);
+        }
     }
 }

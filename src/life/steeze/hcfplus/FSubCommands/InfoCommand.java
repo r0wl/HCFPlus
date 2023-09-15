@@ -12,24 +12,26 @@ import org.bukkit.entity.Player;
 public class InfoCommand implements SubCommand {
     @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) throws NotInFaction {
-        // case when /f info is done with no arguments
-        if(args.length == 0){
-            Faction f = plugin.getData().getFactionOrError(player);
-            f.showInfo(player);
-            return;
-        }
-        Player target = Bukkit.getPlayer(args[0]);
-        if(target != null) {
-            if (plugin.getData().isPlayerInFaction(target)) {
-                plugin.getData().getFaction(target).showInfo(player);
+        if (player.hasPermission("hcf.player.info")) {
+            // case when /f info is done with no arguments
+            if (args.length == 0) {
+                Faction f = plugin.getData().getFactionOrError(player);
+                f.showInfo(player);
                 return;
             }
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target != null) {
+                if (plugin.getData().isPlayerInFaction(target)) {
+                    plugin.getData().getFaction(target).showInfo(player);
+                    return;
+                }
+            }
+            Faction targetF = plugin.getData().getFaction(args[0]);
+            if (targetF != null) {
+                targetF.showInfo(player);
+                return;
+            }
+            player.sendMessage(ConfigManager.NOT_A_PLAYER_OR_FACTION);
         }
-        Faction targetF = plugin.getData().getFaction(args[0]);
-        if(targetF != null){
-            targetF.showInfo(player);
-            return;
-        }
-        player.sendMessage(ConfigManager.NOT_A_PLAYER_OR_FACTION);
     }
 }
