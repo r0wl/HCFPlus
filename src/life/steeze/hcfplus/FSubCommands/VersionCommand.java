@@ -10,4 +10,14 @@ public class VersionCommand implements SubCommand {
     public void perform(Player player, String[] args, HCFPlugin plugin) throws NotInFaction {
         player.sendMessage(plugin.getDescription().getVersion());
     }
+
+    @Override
+    public String getPermission() {
+        return "hcf.admin";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Check plugin version";
+    }
 }

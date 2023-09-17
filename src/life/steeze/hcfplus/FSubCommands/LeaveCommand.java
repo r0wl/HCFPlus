@@ -9,12 +9,20 @@ import org.bukkit.entity.Player;
 
 public class LeaveCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.leave";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Leave your faction";
+    }
+
+    @Override
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if (p.hasPermission("hcf.player.leave")) {
             Faction f = plugin.getData().getFactionOrError(p);
             if (!f.removePlayer(p.getUniqueId())) {
                 p.sendMessage(ChatColor.RED + "Failed to leave faction. (Are you the leader and raidable?)");
             }
-        }
     }
 }

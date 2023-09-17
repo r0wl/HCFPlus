@@ -12,8 +12,17 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class InviteCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.invite";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Invite your friends";
+    }
+
+    @Override
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if (p.hasPermission("hcf.player.invite")) {
             Faction f = plugin.getData().getFactionOrError(p);
             if (!f.getLeader().equals(p.getUniqueId())) {
                 p.sendMessage(ConfigManager.MUST_BE_LEADER);
@@ -46,5 +55,4 @@ public class InviteCommand implements SubCommand {
                 }
             }.runTaskLaterAsynchronously(plugin, 600);
         }
-    }
 }

@@ -11,8 +11,17 @@ import org.bukkit.entity.Player;
 
 public class InfoCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.info";
+    }
+
+    @Override
+    public String getDescription() {
+        return "View a faction's info";
+    }
+
+    @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if (player.hasPermission("hcf.player.info")) {
             // case when /f info is done with no arguments
             if (args.length == 0) {
                 Faction f = plugin.getData().getFactionOrError(player);
@@ -33,5 +42,4 @@ public class InfoCommand implements SubCommand {
             }
             player.sendMessage(ConfigManager.NOT_A_PLAYER_OR_FACTION);
         }
-    }
 }

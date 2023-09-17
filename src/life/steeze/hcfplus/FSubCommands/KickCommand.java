@@ -13,8 +13,17 @@ import java.util.UUID;
 
 public class KickCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.kick";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Kick someone";
+    }
+
+    @Override
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if (p.hasPermission("hcf.player.kick")) {
             Faction f = plugin.getData().getFactionOrError(p);
             if (args.length == 0) {
                 p.sendMessage(ChatColor.RED + "Please supply an argument");
@@ -30,6 +39,5 @@ public class KickCommand implements SubCommand {
             } else {
                 p.sendMessage(ConfigManager.PLAYER_NOT_FOUND);
             }
-        }
     }
 }

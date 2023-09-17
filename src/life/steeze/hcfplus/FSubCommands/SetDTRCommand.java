@@ -10,12 +10,17 @@ import org.bukkit.entity.Player;
 
 public class SetDTRCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.admin";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Set a faction's DTR";
+    }
+
+    @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) throws NotInFaction {
-        //permission check
-        if(!player.hasPermission("hcfplus.admin")) {
-            player.sendMessage(ChatColor.RED + "No Permission");
-            return;
-        }
         //check first arg for faction/player with faction
         Faction f = plugin.getData().getFaction(args[0]);
         if(f == null){

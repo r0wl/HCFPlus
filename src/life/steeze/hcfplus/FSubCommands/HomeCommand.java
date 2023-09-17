@@ -12,8 +12,17 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class HomeCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.home";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Go to your faction's home";
+    }
+
+    @Override
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if(p.hasPermission("hcf.player.home")) {
             Faction f = plugin.getData().getFactionOrError(p);
 
             //inform user of pending teleport
@@ -33,5 +42,4 @@ public class HomeCommand implements SubCommand {
             //add to list so taking damage can cancel teleport
             plugin.getData().getPendingTeleports().put(p, r);
         }
-    }
 }

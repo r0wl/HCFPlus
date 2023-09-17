@@ -9,8 +9,17 @@ import org.bukkit.entity.Player;
 
 public class DescCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.desc";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Tell everyone what you're about";
+    }
+
+    @Override
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if(p.hasPermission("hcf.player.desc")) {
             Faction f = plugin.getData().getFactionOrError(p);
             if (!f.getLeader().equals(p.getUniqueId())) {
                 p.sendMessage(ConfigManager.MUST_BE_LEADER);
@@ -27,7 +36,5 @@ public class DescCommand implements SubCommand {
             } else {
                 p.sendMessage(ChatColor.RED + "Description exceeds maximum length.");
             }
-
-        }
     }
 }

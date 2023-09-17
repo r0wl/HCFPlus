@@ -9,8 +9,17 @@ import org.bukkit.entity.Player;
 
 public class ReloadCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.admin";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Reload config.yml";
+    }
+
+    @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if(!player.hasPermission("hcf.admin")) return;
         plugin.reloadConfig();
         ConfigManager.loadConfig(plugin.getConfig());
         player.sendMessage(ChatColor.YELLOW + "Reloading HCFPlus config.yml");

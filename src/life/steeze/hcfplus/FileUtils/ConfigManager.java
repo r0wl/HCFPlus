@@ -8,6 +8,7 @@ import static org.bukkit.ChatColor.translateAlternateColorCodes;
 
 public class ConfigManager {
 
+
     public static void loadConfig(final FileConfiguration config){
 
         MAX_TEAM_NAME = config.getInt("max-team-name");
@@ -27,6 +28,7 @@ public class ConfigManager {
         FORMATTED_CHAT = translateAlternateColorCodes('&', config.getString("formatted-chat"));
         NO_TEAM_FORMATTED_CHAT = translateAlternateColorCodes('&', config.getString("no-team-formatted-chat"));
 
+        NO_PERMISSION = translateAlternateColorCodes('&', config.getString("no-permission"));
         NOT_IN_FACTION = translateAlternateColorCodes('&', config.getString("msg-must-be-in-faction"));
         SUCCESS = translateAlternateColorCodes('&', config.getString("msg-success"));
         MUST_BE_LEADER = translateAlternateColorCodes('&', config.getString("msg-must-be-leader"));
@@ -80,6 +82,7 @@ public class ConfigManager {
     public static boolean SHOW_COLOR_IN_PLACEHOLDER;
     public static boolean USE_TP_DELAY;
     public static boolean MOB_SPAWN_IN_CLAIMS;
+    public static String NO_PERMISSION;
     public static String FORMATTED_CHAT;
     public static String NO_TEAM_FORMATTED_CHAT;
     public static String NOT_IN_FACTION;

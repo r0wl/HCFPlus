@@ -58,6 +58,7 @@ no-team-formatted-chat: "{name} > {message}"
 mob-spawn-in-claims: false
 
 # Configurable Messages Below
+no-permission: "&cNo permission."
 msg-success: "&eSuccess!"
 msg-must-be-in-faction: "&cYou must be in a faction to do that!"
 msg-must-be-leader: "&cYou must be the leader to do that!"

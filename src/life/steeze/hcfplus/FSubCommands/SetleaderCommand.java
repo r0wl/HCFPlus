@@ -11,8 +11,17 @@ import org.bukkit.entity.Player;
 
 public class SetleaderCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.setleader";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Relinquish your power";
+    }
+
+    @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if (player.hasPermission("hcf.player.setleader")) {
             Faction f = plugin.getData().getFactionOrError(player);
             if (!f.getLeader().equals(player.getUniqueId())) {
                 player.sendMessage(ConfigManager.MUST_BE_LEADER);
@@ -29,5 +38,4 @@ public class SetleaderCommand implements SubCommand {
             }
             f.setLeader(target.getUniqueId());
         }
-    }
 }

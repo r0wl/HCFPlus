@@ -8,13 +8,21 @@ import org.bukkit.entity.Player;
 
 public class AcceptCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.accept";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Accept an invitation to a faction";
+    }
+
+    @Override
     public void perform(Player player, String[] args, HCFPlugin plugin) {
-        if(player.hasPermission("hcf.player.accept")) {
             if(plugin.getData().acceptInvite(player)){
                 player.sendMessage(ConfigManager.SUCCESS);
             } else {
                 player.sendMessage(ConfigManager.NO_INVITE);
             }
-        }
     }
 }

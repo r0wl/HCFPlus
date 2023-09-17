@@ -10,8 +10,17 @@ import org.bukkit.entity.Player;
 
 public class SetHomeCommand implements SubCommand {
     @Override
+    public String getPermission() {
+        return "hcf.player.sethome";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Set your faction's home";
+    }
+
+    @Override
     public void perform(Player p, String[] args, HCFPlugin plugin) throws NotInFaction {
-        if (p.hasPermission("hcf.player.sethome")) {
             Faction f = plugin.getData().getFactionOrError(p);
             if (!f.getLeader().equals(p.getUniqueId())) {
                 p.sendMessage(ConfigManager.MUST_BE_LEADER);
@@ -19,5 +28,4 @@ public class SetHomeCommand implements SubCommand {
             }
             f.setHome(p);
         }
-    }
 }
