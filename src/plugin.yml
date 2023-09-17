@@ -11,6 +11,6 @@ permissions:
   hcf.admin:
     default: op
 api-version: 1.14
-version: 1.18.9c
+version: 1.20
 author: ViperCobra
 softdepend: [PlaceholderAPI]

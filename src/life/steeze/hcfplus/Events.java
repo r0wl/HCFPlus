@@ -74,9 +74,17 @@ public class Events implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
-            Faction f = plugin.getData().getFaction(e.getEntity());
-            if(f == null) return;
-            f.loseDtr();
+        Faction f = plugin.getData().getFaction(e.getEntity());
+        if(f == null) return;
+        f.loseDtr();
+
+        Player k = e.getEntity().getKiller();
+        if(k == null) return;
+
+        Faction kF = plugin.getData().getFaction(k);
+        if (kF == null) return;
+        kF.addKill();
+        kF.broadcast(k.getName() + ChatColor.YELLOW + " just earned a kill for the faction.");
     }
 
     @EventHandler

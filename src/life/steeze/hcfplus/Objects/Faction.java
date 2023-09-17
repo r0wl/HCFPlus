@@ -17,14 +17,15 @@ public class Faction implements ConfigurationSerializable {
     private HCFPlugin data;
 
 
-
     //Attributes
     private final String name;
+
     public String getName() {
         return this.name;
     }
 
     private Location home;
+
     public void setHome(Player p) {
         if (this.claim == null) {
             p.sendMessage(ConfigManager.MUST_HAVE_CLAIM);
@@ -38,6 +39,7 @@ public class Faction implements ConfigurationSerializable {
         }
 
     }
+
     public void tpHome(Player p) {
         if (this.home != null) {
             p.teleport(this.home, PlayerTeleportEvent.TeleportCause.COMMAND);
@@ -47,58 +49,91 @@ public class Faction implements ConfigurationSerializable {
     }
 
     private String description;
+
     public void setDescription(String s) {
         this.description = s;
     }
 
+    private int kills;
+
+    public void addKill() {
+        this.kills++;
+    }
+
+    public int getKills() {
+        return this.kills;
+    }
+
     private int dtr;
-    public void setDtr(int dtr){ this.dtr = dtr; }
-    public int maxDtr(){
+
+    public void setDtr(int dtr) {
+        this.dtr = dtr;
+    }
+
+    public int maxDtr() {
         return Math.min((this.members.size() + 2), ConfigManager.MAXIMUM_DTR);
     }
+
     public void regenDtr() {
         if (this.dtr < maxDtr()) this.dtr += 1; // Add 1 for the leader of faction
     }
+
     public int getDtr() {
         return this.dtr;
     }
-    public void loseDtr(){
-        if(this.dtr > ConfigManager.MINIMUM_DTR) this.dtr--;
+
+    public void loseDtr() {
+        if (this.dtr > ConfigManager.MINIMUM_DTR) this.dtr--;
     }
 
     private UUID leader;
-    public UUID getLeader() { return this.leader; }
+
+    public UUID getLeader() {
+        return this.leader;
+    }
 
     private ArrayList<UUID> members = new ArrayList<>();
-    public ArrayList<UUID> getMembers() { return this.members; }
-    public Player[] getOnlineMembers(){
+
+    public ArrayList<UUID> getMembers() {
+        return this.members;
+    }
+
+    public Player[] getOnlineMembers() {
         ArrayList<Player> members = new ArrayList<>();
-        if(Bukkit.getPlayer(this.leader) != null) members.add(Bukkit.getPlayer(this.leader));
-        for(UUID member : this.members){
-            if(Bukkit.getPlayer(member) != null) members.add(Bukkit.getPlayer(member));
+        if (Bukkit.getPlayer(this.leader) != null) members.add(Bukkit.getPlayer(this.leader));
+        for (UUID member : this.members) {
+            if (Bukkit.getPlayer(member) != null) members.add(Bukkit.getPlayer(member));
         }
         Player[] online = new Player[members.size()];
         members.toArray(online);
         return online;
     }
+
     public boolean hasMember(Player p) {
         if (this.members.contains(p.getUniqueId())) return true;
         return this.leader.equals(p.getUniqueId());
     }
 
     private ChatColor color = ChatColor.WHITE;
-    public ChatColor getColor(){return this.color;}
-    public void setColor(ChatColor color){
+
+    public ChatColor getColor() {
+        return this.color;
+    }
+
+    public void setColor(ChatColor color) {
         this.color = color;
     }
 
     private Claim claim;
+
     public Claim getClaim() {
         return this.claim;
     }
+
     public void setClaim(Claim c) {
         this.claim = c;
     }
+
     public boolean hasClaim() {
         if (this.claim == null) return false;
         return true;
@@ -113,6 +148,7 @@ public class Faction implements ConfigurationSerializable {
         Faction faction = (Faction) o;
         return name.equals(faction.name);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(name);
@@ -126,18 +162,22 @@ public class Faction implements ConfigurationSerializable {
         this.dtr = 2;
         this.data = data;
         this.data.getData().addFPlayer(p, this);
+        this.kills = 0;
     }
+
     //Constructor for loaded faction
     public Faction(Map<String, Object> map, final HCFPlugin data) {
         this.data = data;
         this.name = (String) map.get("name");
-        if(map.get("leader") != null) this.leader = UUID.fromString((String) map.get("leader"));
+        if (map.get("leader") != null) this.leader = UUID.fromString((String) map.get("leader"));
         for (String m : (ArrayList<String>) map.get("members")) {
             this.members.add(UUID.fromString(m));
-            if(Bukkit.getOfflinePlayer(UUID.fromString(m)).isOnline()) data.getData().addFPlayer(Bukkit.getPlayer(UUID.fromString(m)), this);
+            if (Bukkit.getOfflinePlayer(UUID.fromString(m)).isOnline())
+                data.getData().addFPlayer(Bukkit.getPlayer(UUID.fromString(m)), this);
         }
         this.description = (String) map.get("description");
         this.dtr = (int) map.get("dtr");
+        if (map.get("kills") == null) this.kills = 0; else this.kills = (int) map.get("kills");
         this.color = ChatColor.getByChar((String) map.get("color"));
         this.home = (Location) map.get("home");
         if (map.get("claim") != null) this.claim = Claim.deserialize((MemorySection) map.get("claim"), data);
@@ -147,14 +187,14 @@ public class Faction implements ConfigurationSerializable {
 
 
     //Broadcast to all members
-    public void broadcast(final String s){
+    public void broadcast(final String s) {
         for (UUID id : this.members) {
-            if(Bukkit.getOfflinePlayer(id).isOnline()) {
+            if (Bukkit.getOfflinePlayer(id).isOnline()) {
                 Player player = Bukkit.getPlayer(id);
                 player.sendMessage(s);
             }
         }
-        if(Bukkit.getOfflinePlayer(this.leader).isOnline()){
+        if (Bukkit.getOfflinePlayer(this.leader).isOnline()) {
             Bukkit.getPlayer(this.leader).sendMessage(s);
         }
     }
@@ -176,8 +216,10 @@ public class Faction implements ConfigurationSerializable {
     // Faction info display.
     public void showInfo(final Player p) {
         p.sendMessage(ChatColor.YELLOW + "----==== Faction info: " + this.color + this.name + ChatColor.YELLOW + " ====----");
+        p.sendMessage(ChatColor.YELLOW + "Kills: " + ChatColor.WHITE + this.kills);
         p.sendMessage(ChatColor.YELLOW + "Description: " + ChatColor.WHITE + this.description);
-        if(ConfigManager.ENABLE_RAIDING) p.sendMessage(ChatColor.YELLOW + "DTR: " + ChatColor.WHITE + this.dtr + (this.dtr <= 0 ? ChatColor.RED + "| RAIDABLE" : ""));
+        if (ConfigManager.ENABLE_RAIDING)
+            p.sendMessage(ChatColor.YELLOW + "DTR: " + ChatColor.WHITE + this.dtr + (this.dtr <= 0 ? ChatColor.RED + "| RAIDABLE" : ""));
         p.sendMessage(ChatColor.YELLOW + "Leader: " + ChatColor.WHITE + (Bukkit.getOfflinePlayer(this.leader).isOnline() ? Bukkit.getPlayer(this.leader).getName() : Bukkit.getOfflinePlayer(this.leader).getName()));
         p.sendMessage(ChatColor.YELLOW + "Members:" + ChatColor.WHITE);
         for (UUID id : this.members) {
@@ -189,10 +231,10 @@ public class Faction implements ConfigurationSerializable {
             }
             p.sendMessage(name);
         }
-        if(!ConfigManager.SHOW_COORDS_IN_INFO) return;
+        if (!ConfigManager.SHOW_COORDS_IN_INFO) return;
         if (this.hasClaim()) {
             p.sendMessage(ChatColor.GREEN + "Claim start: " + this.claim.start() +
-                    "\n" +"Claim end: " + this.claim.end());
+                    "\n" + "Claim end: " + this.claim.end());
             if (this.claim.getBounds().contains(p.getLocation().toVector())) {
                 this.claim.showBounds(p);
             }
@@ -213,12 +255,12 @@ public class Faction implements ConfigurationSerializable {
 
     //Remove player from faction, whether they left or were kicked. Returns true if player was in the faction, false if player was not.
     public boolean removePlayer(final UUID p) {
-        if(p.equals(this.leader)){
-            if(this.dtr <= 0) return false;
+        if (p.equals(this.leader)) {
+            if (this.dtr <= 0) return false;
             this.disband();
             return true;
         }
-        if(this.members.remove(p)){
+        if (this.members.remove(p)) {
             data.getData().removeFPlayer(Bukkit.getPlayer(p)); //Remove from FPlayers if online
             this.broadcast(Bukkit.getOfflinePlayer(p).getName() + ChatColor.GOLD + " is no longer in the faction.");
             return true;
@@ -249,10 +291,12 @@ public class Faction implements ConfigurationSerializable {
         map.put("description", this.description);
         map.put("dtr", this.dtr);
         map.put("home", this.home);
+        map.put("kills", this.kills);
         if (this.claim != null) map.put("claim", this.claim.serialize());
         else map.put("claim", null);
         return map;
     }
+
     public static Faction deserialize(Map<String, Object> map, HCFPlugin data) {
         return new Faction(map, data);
     }
