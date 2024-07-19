@@ -85,25 +85,25 @@ public class Claim implements ConfigurationSerializable {
         double maxZ = this.getBounds().getMaxZ();
         for (double i = minX; i < maxX; i += 1d / 3d) {
             for (double j = 62; j < height; j += 4.0) {
-                p.spawnParticle(Particle.DRIP_LAVA, i, j, minZ, 1);
+                p.spawnParticle(Particle.DRIPPING_LAVA, i, j, minZ, 1);
                 p.spawnParticle(Particle.DRIPPING_OBSIDIAN_TEAR, i, j + 2.0, minZ, 1);
             }
         }
         for (double i = minX; i < maxX; i += 1d / 3d) {
             for (double j = 62; j < height; j += 4.0) {
-                p.spawnParticle(Particle.DRIP_LAVA, i, j, maxZ, 1);
+                p.spawnParticle(Particle.DRIPPING_LAVA, i, j, maxZ, 1);
                 p.spawnParticle(Particle.DRIPPING_OBSIDIAN_TEAR, i, j + 2.0, maxZ, 1);
             }
         }
         for (double i = minZ; i < maxZ; i += 1d / 3d) {
             for (double j = 62; j < height; j += 4.0) {
-                p.spawnParticle(Particle.DRIP_LAVA, minX, j, i, 1);
+                p.spawnParticle(Particle.DRIPPING_LAVA, minX, j, i, 1);
                 p.spawnParticle(Particle.DRIPPING_OBSIDIAN_TEAR, minX, j + 2.0, i, 1);
             }
         }
         for (double i = minZ; i < maxZ; i += 1d / 3d) {
             for (double j = 62; j < height; j += 4.0) {
-                p.spawnParticle(Particle.DRIP_LAVA, maxX, j, i, 1);
+                p.spawnParticle(Particle.DRIPPING_LAVA, maxX, j, i, 1);
                 p.spawnParticle(Particle.DRIPPING_OBSIDIAN_TEAR, maxX, j + 2.0, i, 1);
             }
         }
