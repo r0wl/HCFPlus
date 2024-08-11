@@ -1,7 +1,8 @@
-package life.steeze.hcfplus;
+package life.steeze.hcfplus.Listeners;
 
 
 import life.steeze.hcfplus.FileUtils.ConfigManager;
+import life.steeze.hcfplus.HCFPlugin;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Objects.Selection;
 import life.steeze.hcfplus.events.ArmorEquipEvent;
@@ -101,6 +102,7 @@ public class Events implements Listener {
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent e) {
         if (e.isCancelled()) return;    //return if cancelled
+
 
         Player attacker = null, defender = null;    //initialize vars
         boolean isBowAttack = false;

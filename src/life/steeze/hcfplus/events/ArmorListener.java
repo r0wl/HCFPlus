@@ -155,16 +155,6 @@ class ArmorListener implements Listener{
 				event.setCancelled(true);
 			}
 		}
-		// Debug shit
-		/*System.out.println("Slots: " + event.getInventorySlots().toString());
-		System.out.println("Raw Slots: " + event.getRawSlots().toString());
-		if(event.getCursor() != null){
-			System.out.println("Cursor: " + event.getCursor().getType().name());
-		}
-		if(event.getOldCursor() != null){
-			System.out.println("OldCursor: " + event.getOldCursor().getType().name());
-		}
-		System.out.println("Type: " + event.getType().name());*/
 	}
 
 	@EventHandler
@@ -174,20 +164,6 @@ class ArmorListener implements Listener{
 			Player p = event.getPlayer();
 			ArmorEquipEvent armorEquipEvent = new ArmorEquipEvent(p, ArmorEquipEvent.EquipMethod.BROKE, type, event.getBrokenItem(), null);
 			Bukkit.getServer().getPluginManager().callEvent(armorEquipEvent);
-			if(armorEquipEvent.isCancelled()){
-				ItemStack i = event.getBrokenItem().clone();
-				i.setAmount(1);
-				i.setDurability((short) (i.getDurability() - 1));
-				if(type.equals(ArmorType.HELMET)){
-					p.getInventory().setHelmet(i);
-				}else if(type.equals(ArmorType.CHESTPLATE)){
-					p.getInventory().setChestplate(i);
-				}else if(type.equals(ArmorType.LEGGINGS)){
-					p.getInventory().setLeggings(i);
-				}else if(type.equals(ArmorType.BOOTS)){
-					p.getInventory().setBoots(i);
-				}
-			}
 		}
 	}
 

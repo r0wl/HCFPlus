@@ -2,7 +2,6 @@ package life.steeze.hcfplus.FileUtils;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.Map;
 
 import static org.bukkit.ChatColor.translateAlternateColorCodes;
 
@@ -49,6 +48,7 @@ public class ConfigManager {
         TELEPORT_PENDING = translateAlternateColorCodes('&', config.getString("teleport-pending").replaceAll("\\{seconds}", Long.toString((TELEPORT_DELAY/20))));
         NOT_A_PLAYER_OR_FACTION = translateAlternateColorCodes('&', config.getString("not-a-player-or-faction"));
         ARCHER_TAGGED = translateAlternateColorCodes('&', config.getString("archer-tagged"));
+        ENTERING_MESSAGE = translateAlternateColorCodes('&', config.getString("entering-claim"));
 
         FORMAT_CHAT = config.getBoolean("format-chat");
         MOB_SPAWN_IN_CLAIMS = config.getBoolean("mob-spawn-in-claims");
@@ -57,6 +57,8 @@ public class ConfigManager {
         SHOW_COLOR_IN_PLACEHOLDER = config.getBoolean("show-color-in-placeholder");
         USE_KITS = config.getBoolean("use-kits");
         USE_TP_DELAY = config.getBoolean("use-tp-delay");
+        NOTIFY_WHEN_ENTERING_CLAIM = config.getBoolean("notify-when-entering-claim");
+        ALLOW_MOVEMENT_WHEN_TPING = config.getBoolean("notify-when-entering-claim");
 
     }
 
@@ -82,6 +84,8 @@ public class ConfigManager {
     public static boolean SHOW_COLOR_IN_PLACEHOLDER;
     public static boolean USE_TP_DELAY;
     public static boolean MOB_SPAWN_IN_CLAIMS;
+    public static boolean NOTIFY_WHEN_ENTERING_CLAIM;
+    public static boolean ALLOW_MOVEMENT_WHEN_TPING;
     public static String NO_PERMISSION;
     public static String FORMATTED_CHAT;
     public static String NO_TEAM_FORMATTED_CHAT;
@@ -105,4 +109,5 @@ public class ConfigManager {
     public static String FACTION_FOUNDED;
     public static String TELEPORT_PENDING;
     public static String ARCHER_TAGGED;
+    public static String ENTERING_MESSAGE;
 }

@@ -235,7 +235,7 @@ public class Faction implements ConfigurationSerializable {
         if (this.hasClaim()) {
             p.sendMessage(ChatColor.GREEN + "Claim start: " + this.claim.start() +
                     "\n" + "Claim end: " + this.claim.end());
-            if (this.claim.getBounds().contains(p.getLocation().toVector())) {
+            if (this.claim.containsLocation(p.getLocation())) {
                 this.claim.showBounds(p);
             }
         } else {

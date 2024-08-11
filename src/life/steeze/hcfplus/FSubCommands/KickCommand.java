@@ -29,6 +29,7 @@ public class KickCommand implements SubCommand {
                 p.sendMessage(ChatColor.RED + "Please supply an argument");
                 return;
             }
+            @SuppressWarnings("deprecation")
             UUID target = Bukkit.getOfflinePlayer(args[0]).getUniqueId();
             if (target.equals(p.getUniqueId())) {
                 p.sendMessage(ChatColor.RED + "You can't kick yourself. Try leaving instead.");
