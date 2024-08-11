@@ -11,6 +11,11 @@ show-coords-in-info: true
 # Set to true to add a customizable delay to /f home
 use-tp-delay: false
 
+# Allow players to walk around while waiting to teleport? (Note: Attacking/being attacked will still cancel teleport)
+# To stop players using '/f home' while in combat, use your combat tag plugin to disable the command
+# Not recommended for low-performance servers
+allow-movement-when-tping: true
+
 # Teleport delay (seconds).
 teleport-delay: 5
 
@@ -23,8 +28,12 @@ max-description-length: 80
 # Maximum distance between the 2 claim corners
 max-claim-corner-distance: 100
 
-# Minimum distance between 2 claim corners
+# Minimum width of any side of a claim
 min-claim-width: 4
+
+# Send player a message when he enters a faction claim
+# Not recommended for low-performance servers
+notify-when-entering-claim: false
 
 # Maximum members in faction (excluding leader)
 max-members: 5
@@ -78,6 +87,7 @@ name-taken: "&cThat name is already taken!"
 invalid-name: "&cTry another name with A-Z only!"
 faction-founded: "&eFaction &f{faction} &ehas been founded!" #Use {faction} to get the name of the founded faction
 teleport-pending: "&eTeleporting to faction home in &f{seconds} &eseconds. Do not engage in PvP combat."
+entering-claim: "&eNow entering: &r{faction}"
 archer-tagged: "&cYou have been archer tagged!"
 
 # PlaceholderAPI Settings

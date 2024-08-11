@@ -2,6 +2,9 @@ package life.steeze.hcfplus;
 
 import life.steeze.hcfplus.FileUtils.ConfigManager;
 import life.steeze.hcfplus.FileUtils.FactionsFile;
+import life.steeze.hcfplus.Listeners.EnteredClaim;
+import life.steeze.hcfplus.Listeners.Events;
+import life.steeze.hcfplus.Listeners.MovedInTeleport;
 import life.steeze.hcfplus.Objects.Claim;
 import life.steeze.hcfplus.Objects.Faction;
 import life.steeze.hcfplus.Timers.AbilitiesTimer;
@@ -10,6 +13,8 @@ import life.steeze.hcfplus.Utilities.ClaimWand;
 import life.steeze.hcfplus.Utilities.ColorGUI;
 import life.steeze.hcfplus.Utilities.PlayerData;
 import life.steeze.hcfplus.events.ArmorEquipEvent;
+import life.steeze.hcfplus.events.MoveBlockEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.inventory.Inventory;
@@ -72,6 +77,15 @@ public class HCFPlugin extends JavaPlugin implements CommandExecutor {
             ArmorEquipEvent.registerListener(this);
         }
         regen = new DTRTimer(this);
+        if(!ConfigManager.ALLOW_MOVEMENT_WHEN_TPING || ConfigManager.NOTIFY_WHEN_ENTERING_CLAIM){
+            MoveBlockEvent.registerListener(this);
+            if (!ConfigManager.ALLOW_MOVEMENT_WHEN_TPING){
+                Bukkit.getServer().getPluginManager().registerEvents(new MovedInTeleport(this), this);
+            }
+            if(ConfigManager.NOTIFY_WHEN_ENTERING_CLAIM){
+                Bukkit.getServer().getPluginManager().registerEvents(new EnteredClaim(this), this);
+            }
+        }
     }
 
     @Override
